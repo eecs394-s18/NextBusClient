@@ -14,12 +14,13 @@ import { IonicPage, NavParams, ViewController } from 'ionic-angular';
   templateUrl: 'stop-details.html',
 })
 export class StopDetailsPage {
+  public stopName: string;
 
   constructor(public navParams: NavParams, public view: ViewController) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad StopDetailsPage');
+    this.stopName = this.navParams.data.stopName;
   }
 
   closeModal() {

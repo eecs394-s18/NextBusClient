@@ -31,7 +31,7 @@ export class StopsPage {
 
   itemTapped(event, item) {
     let stopDetailsModal = this.modalCtrl.create(StopDetailsPage,
-    undefined,
+    {stopName: item.title},
     {cssClass:'stopDetailsModal'});
     stopDetailsModal.present();
   }
