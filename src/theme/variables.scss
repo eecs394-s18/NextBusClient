@@ -87,12 +87,8 @@ $colors: (
 @import "roboto";
 @import "noto-sans";
 
-// Modals
+// Tab bar
 // --------------------------------------------------
-.stopDetailsModal {
-  height: 60%;
-  position: absolute;
-  left: 0;
-  bottom: 50px;
-  top: auto;
+.tabbar {
+  height: 8%;
 }
