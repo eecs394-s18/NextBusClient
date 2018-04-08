@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavParams, ViewController } from 'ionic-angular';
 
 /**
  * Generated class for the StopDetailsPage page.
@@ -15,11 +15,15 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class StopDetailsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navParams: NavParams, public view: ViewController) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad StopDetailsPage');
+  }
+
+  closeModal() {
+    this.view.dismiss()
   }
 
 }
