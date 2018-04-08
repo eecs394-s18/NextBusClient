@@ -86,3 +86,13 @@ $colors: (
 
 @import "roboto";
 @import "noto-sans";
+
+// Modals
+// --------------------------------------------------
+.stopDetailsModal {
+  height: 60%;
+  position: absolute;
+  left: 0;
+  bottom: 50px;
+  top: auto;
+}
