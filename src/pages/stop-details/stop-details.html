@@ -10,16 +10,63 @@
   </div>
   <div class="modalContent">
     <ion-navbar>
-      <ion-buttons end>
-        <button ion-button (click)="closeModal()">Dismiss</button>
-      </ion-buttons>
-      <ion-title>{{this.stopName}} </ion-title>
+      <ion-row>
+          <button float-left (click)="closeModal()" >Back</button>
+      <ion-title align="center">{{this.stopName}}</ion-title>
+
+      <button float-right (click)="buttonClick()">
+            <ion-icon ios="ios-pin" md="md-pin"></ion-icon>
+      </button>
+      <button class="favoriteButton" float-right (click)="favoriteAdded()">
+             <ion-icon ios="ios-star-outline" md="md-star" isActive="false"></ion-icon>
+      </button>
+
+    </ion-row>
     </ion-navbar>
 
-    <p *ngFor="let time of stopTime | async">line: {{time.line}} time:{{time.time}}</p>
-    <!-- <p *ngFor="let time of stopTime | async">{{time.name}}</p> -->
+    <div class="time-display" align="center">
+      <h1>17 minutes</h1>
+      <h2>Intercampus (N)</h2>
+    </div>
+
+    <ion-item-divider>
+    </ion-item-divider>
+    <ion-list>
+
+      <ion-item>
+        <h3 class="alignLeft">CTA 201</h3>
+        <h3 class="alignRight">21 min</h3>
+
+    </ion-item>
+
+    <ion-item>
+        <h3 class="alignLeft">Campus Loop</h3>
+        <h3 class="alignRight">25 min</h3>
+      </ion-item>
+
+
+
+      <ion-item>
+          <h3 class="alignLeft">Evanston Loop</h3>
+          <h3 class="alignRight">45 min</h3>
+        </ion-item>
+
+
+
+        <ion-item>
+        </ion-item>
+    </ion-list>
+
+
+    <div align="center">
+      <button class="serviceNotes" (click)="buttonClick()">
+        Service Notes
+      </button>
+  </div>
+
 
   </div>
 </div>
 <div tappable class="tabBarModalCover" (click)="closeModal()">
+
 </div>
