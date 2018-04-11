@@ -15,7 +15,7 @@
 <ion-content>
   <ion-list>
     <button ion-item *ngFor="let item of items | async" (click)="itemTapped($event, item)">
-      {{item.name}}:{{item.lineShort}}
+      {{item.name}}
     </button>
   </ion-list>
 </ion-content>

@@ -19,16 +19,6 @@ import { FirebaseProvider } from './../../providers/firebase/firebase';
   templateUrl: 'stops.html',
 })
 export class StopsPage {
-  /*
-    items: Array<{ title: string }>;
-    constructor(public navCtrl: NavController, public modalCtrl: ModalController, public navParams: NavParams) {
-      this.items = [];
-      let item1 = { title: 'Weber Arch' };
-      let item2 = { title: 'Tech Institute' };
-      this.items.push(item1);
-      this.items.push(item2);
-    }
-  */
 
   items: Observable<any[]>;
   // busStopsRef: AngularFireList<any>;
@@ -40,13 +30,11 @@ export class StopsPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad StopsPage');
-    // var time = new Date().getDay();
-    // console.log(time);
   }
 
   itemTapped(event, item) {
     let stopDetailsModal = this.modalCtrl.create(StopDetailsPage,
-      { stopName: item.name, stopLine: item.line, stopID: item.id },
+      { stopName: item.name, stopID: item.id },
       { cssClass: 'stopDetailsModal' });
     // console.log("itemid: "+item.id)
     stopDetailsModal.present();

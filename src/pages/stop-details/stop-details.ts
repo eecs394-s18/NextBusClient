@@ -18,23 +18,27 @@ import { FirebaseProvider } from './../../providers/firebase/firebase';
 })
 export class StopDetailsPage {
   public stopName: string;
-  public stopLine: string;
   public stopID: string;
   stopTime: Observable<any[]>;
+  stopLines: Observable<any[]>;
+  stopLocation: Observable<any[]>;
   constructor(public navParams: NavParams, public view: ViewController, public firebaseProvider: FirebaseProvider) {
   }
 
   ionViewDidLoad() {
     this.stopName = this.navParams.data.stopName;
-    this.stopLine = this.navParams.data.stopLine;
     var d = new Date();
     this.stopID = this.navParams.data.stopID;
     this.stopTime = this.firebaseProvider.getstopTimes(this.stopID, d.getDay()).valueChanges();
-
-    // basic way to parse data from stopTime:
-    this.stopTime.subscribe(res => { res.forEach(t => { console.log("each time and line: " + t.time + " " + t.line) }); });
+    this.stopLines = this.firebaseProvider.getStopLines(this.stopID).valueChanges();
+    this.stopLocation = this.firebaseProvider.getStopLocation(this.stopID).snapshotChanges();
 
     console.log("stopDetail id: " + this.stopID);
+    this.stopLocation.subscribe(res => { res.forEach(t => { console.log(t.key + ": " + t.payload.val()); }); });
+    this.stopLines.subscribe(res => { res.forEach(t => { console.log("each line serviced:" + t); }); });
+    this.stopTime.subscribe(res => { res.forEach(t => { console.log("each time and line: " + t.time + " " + t.line); }); });
+
+
   }
 
   closeModal() {
