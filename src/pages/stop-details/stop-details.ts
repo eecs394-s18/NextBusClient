@@ -45,7 +45,7 @@ export class StopDetailsPage {
     this.view.dismiss()
   }
 
-  favoriteAdded() {
+/*  favoriteAdded() {
 
       if (this.isActive === "false") {
         this.isActive = "true";
@@ -54,5 +54,6 @@ export class StopDetailsPage {
         this.isActive = "false";
       }
    }
+   */
 
 }
