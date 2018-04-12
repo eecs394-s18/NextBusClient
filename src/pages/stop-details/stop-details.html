@@ -11,12 +11,15 @@
   <div class="modalContent">
     <ion-navbar>
       <ion-buttons end>
-          <button ion-button (click)="closeModal()">Dismiss</button>
+        <button ion-button (click)="closeModal()">Dismiss</button>
       </ion-buttons>
-      <ion-title>{{this.stopName}}</ion-title>
+      <ion-title>{{this.stopName}} </ion-title>
     </ion-navbar>
+
+    <p *ngFor="let time of stopTime | async">line: {{time.line}} time:{{time.time}}</p>
+    <!-- <p *ngFor="let time of stopTime | async">{{time.name}}</p> -->
+
   </div>
 </div>
 <div tappable class="tabBarModalCover" (click)="closeModal()">
-
 </div>

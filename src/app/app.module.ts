@@ -12,6 +12,23 @@ import { StopsPage } from '../pages/stops/stops';
 import { RouteMapPage } from '../pages/route-map/route-map';
 import { StopDetailsPage } from '../pages/stop-details/stop-details';
 
+//for firebase
+import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireModule } from 'angularfire2';
+import { FirebaseProvider } from './../providers/firebase/firebase';
+// import { FirebaseProvider } from '../providers/firebase/firebase';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCGu9TTnXfE5R1IIgnX4E7cEfoXIcm_L1k",
+  authDomain: "nextbus-6963e.firebaseapp.com",
+  databaseURL: "https://nextbus-6963e.firebaseio.com",
+  projectId: "nextbus-6963e",
+  storageBucket: "nextbus-6963e.appspot.com",
+  messagingSenderId: "229424620214"
+};
+
 @NgModule({
   declarations: [
     MyApp,
@@ -23,6 +40,10 @@ import { StopDetailsPage } from '../pages/stop-details/stop-details';
   ],
   imports: [
     BrowserModule,
+    HttpModule,
+    HttpClientModule,
+    AngularFireDatabaseModule,
+    AngularFireModule.initializeApp(firebaseConfig),
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -37,7 +58,8 @@ import { StopDetailsPage } from '../pages/stop-details/stop-details';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    FirebaseProvider,
+    { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })
-export class AppModule {}
+export class AppModule { }
