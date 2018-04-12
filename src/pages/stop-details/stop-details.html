@@ -33,7 +33,7 @@
 </header>
 
     <div class="time-display" align="center" ng-if="nextBuses != undefined">
-      <h1>{{this.nextBuses[0].timeRemaining.diffMins}} Minutes</h1>
+      <h1>{{this.nextBuses[0].timeRemaining}} Minutes</h1>
       <h2>{{this.nextBuses[0].line}}</h2>
     </div>
 
@@ -43,7 +43,7 @@
 
       <ion-item *ngFor="let nextBus of nextBuses | slice:1">
         <h3 class="alignLeft">{{nextBus.line}}</h3>
-        <h3 class="alignRight">{{nextBus.timeRemaining.diffMins}} Minutes</h3>
+        <h3 class="alignRight">{{nextBus.timeRemaining}} Minutes</h3>
       </ion-item>
 
     </ion-list>

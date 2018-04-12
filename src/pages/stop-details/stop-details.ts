@@ -39,6 +39,7 @@ export class StopDetailsPage {
 
     console.log("stopDetail id: " + this.stopID);
     
+    // Get firebase changes in real time from observable
     this.stopLocation.subscribe();
     this.stopLines.subscribe();
     this.stopTime.subscribe(times => { 
@@ -47,7 +48,7 @@ export class StopDetailsPage {
 
     setInterval(() => {
       this.refreshNextBusTimes();
-    }, 60000);
+    }, 60000); //60000 milliseconds is 1 minute
   }
 
   refreshNextBusTimes() {
