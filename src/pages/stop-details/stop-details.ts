@@ -45,15 +45,9 @@ export class StopDetailsPage {
     this.view.dismiss()
   }
 
- favoriteAdded() {
+ buttonClick() {
 
-      if (this.isActive === "false") {
-        this.isActive = "true";
-      }
-      else if (this.isActive === "true") {
-        this.isActive = "false";
-      }
    }
-   
+
 
 }
