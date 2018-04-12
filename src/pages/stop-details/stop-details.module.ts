@@ -10,4 +10,6 @@ import { StopDetailsPage } from './stop-details';
     IonicPageModule.forChild(StopDetailsPage),
   ],
 })
+
+
 export class StopDetailsPageModule {}

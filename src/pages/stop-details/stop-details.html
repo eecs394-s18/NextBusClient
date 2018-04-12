@@ -4,22 +4,81 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<div class="tapPageModal">
-  <div tappable class="modalFiller" (click)="closeModal()">
 
-  </div>
   <div class="modalContent">
-    <ion-navbar>
+
+    <header>
+      <ion-navbar>
+        <ion-buttons start>
+
+      <button ion-button clear icon-only (click)="closeModal()" >
+        <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+      </button>
+
+    </ion-buttons>
+
+      <ion-title align="center">{{this.stopName}}</ion-title>
+
       <ion-buttons end>
-        <button ion-button (click)="closeModal()">Dismiss</button>
-      </ion-buttons>
-      <ion-title>{{this.stopName}} </ion-title>
-    </ion-navbar>
+      <button ion-button clear icon-only (click)="buttonClick()">
+            <ion-icon ios="ios-pin" md="md-pin"></ion-icon>
+      </button>
 
-    <p *ngFor="let time of stopTime | async">line: {{time.line}} time:{{time.time}}</p>
-    <!-- <p *ngFor="let time of stopTime | async">{{time.name}}</p> -->
+      <button ion-button clear icon-only class="favoriteButton" (click)="buttonClick()">
+             <ion-icon ios="ios-star-outline" md="md-star"></ion-icon>
+      </button>
+    </ion-buttons>
 
-  </div>
-</div>
-<div tappable class="tabBarModalCover" (click)="closeModal()">
+  </ion-navbar>
+</header>
+
+
+
+
+
+
+    <div class="time-display" align="center">
+      <h1>17 minutes</h1>
+      <h2>Intercampus (N)</h2>
+    </div>
+
+    <ion-item-divider>
+    </ion-item-divider>
+    <ion-list>
+
+      <ion-item>
+        <h3 class="alignLeft">CTA 201 (N)</h3>
+        <h3 class="alignRight">21 min</h3>
+
+    </ion-item>
+
+    <ion-item>
+        <h3 class="alignLeft">Campus Loop (S)</h3>
+        <h3 class="alignRight">25 min</h3>
+      </ion-item>
+
+
+
+      <ion-item>
+          <h3 class="alignLeft">Evanston Loop (N)</h3>
+          <h3 class="alignRight">45 min</h3>
+        </ion-item>
+
+
+
+    </ion-list>
+
+
+  <ion-list>
+    <ion-item>
+      <div align="center" class = "button-bar">
+        <button ion-button clear class = "serviceNotes" (click)="buttonClick()">
+          Service Notes
+        </button>
+      </div>
+    </ion-item>
+  </ion-list>
+
+
+
 </div>

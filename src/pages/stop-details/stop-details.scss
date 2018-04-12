@@ -1,17 +1,50 @@
 page-stop-details {
     .tapPageModal {
-        height: 92%;
+
     }
     .tabBarModalCover {
-        height: 8%;
+
     }
-    .modalFiller {
-        height: 50%;
-        background-color: black;
-        opacity: 0.5;
-    }
+    
     .modalContent {
-        height: 50%;
+
         background-color: white;
+    }
+
+    .time-display {
+
+      align-items: center;
+    }
+
+    .alignLeft {
+      float: left;
+
+
+
+    }
+
+    .alignRight {
+      float: right;
+    }
+
+    .alignCenter {
+      align-items: center;
+    }
+
+    .serviceNotes {
+
+
+
+    }
+
+    .rightIcon {
+      text-align: right;
+    }
+
+
+    .button {
+      background-color: Transparent;
+      border: none;
+      color: black;
     }
 }

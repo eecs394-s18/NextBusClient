@@ -45,4 +45,9 @@ export class StopDetailsPage {
     this.view.dismiss()
   }
 
+ buttonClick() {
+
+   }
+
+
 }
