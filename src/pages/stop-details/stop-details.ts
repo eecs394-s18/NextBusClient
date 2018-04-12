@@ -16,6 +16,7 @@ import { FirebaseProvider } from './../../providers/firebase/firebase';
   selector: 'page-stop-details',
   templateUrl: 'stop-details.html',
 })
+
 export class StopDetailsPage {
   public stopName: string;
   public stopID: string;
@@ -44,16 +45,23 @@ export class StopDetailsPage {
       this.nextBuses = this.getNextBusesInOrder(times);
     });
 
-    // setInterval(function() {
-    //   console.log('interval')
-    //   console.log(this.nextBuses)
-    //   if (this.nextBuses === undefined) {
-    //     console.log('undef')
-    //     return;
-    //   }
-    //   console.log(this.nextBuses[0].diffSecs);
-    //   this.nextBuses[0].diffSecs = this.nextBuses[0].diffSecs - 1;
-    // }, 1000);
+    setInterval(() => {
+      this.refreshNextBusTimes();
+    }, 60000);
+  }
+
+  refreshNextBusTimes() {
+    if (this.nextBuses === undefined) {
+      return;
+    }
+    this.nextBuses.forEach(nextBus => {
+      let currentMins = nextBus['timeRemaining'];
+      if (currentMins === 0) {
+        console.log('remove bus maybe, show survey maybe')
+      } else {
+        nextBus['timeRemaining'] = currentMins - 1;
+      }
+    });
   }
 
   convertTimeStringToDateTime(timeString: string) : Date {
@@ -68,20 +76,17 @@ export class StopDetailsPage {
     return newDate;
   }
 
-  timeRemainingFromT1ToT2(t1: Date, t2: Date) : {diffHours: number, diffMins: number, diffSecs: number}{
-    const hourMask: number = 60*60*1000;
+  timeRemainingFromT1ToT2(t1: Date, t2: Date) : number {
     const minMask: number = 60*1000;
     const secMask: number = 1000;
 
     var diffInMs: number = <any>t2-<any>t1; // any is needed to supress typescript error which complains about date arithmetic
     var diffRemaining: number = diffInMs;
-    var diffHours: number = Math.trunc(diffRemaining/hourMask);
-    var diffRemaining: number = diffRemaining % hourMask;
     var diffMins: number = Math.trunc(diffRemaining/minMask);
     var diffRemaining: number = diffRemaining % minMask;
     var diffSeconds: number = Math.trunc(diffRemaining/secMask);
 
-    return {diffHours: diffHours, diffMins: diffMins, diffSecs: diffSeconds};
+    return diffMins;
   }
 
   getNextBusesInOrder(todayBusTimes: any): any { 
