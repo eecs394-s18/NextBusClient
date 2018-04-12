@@ -32,39 +32,19 @@
   </ion-navbar>
 </header>
 
-
-
-
-
-
-    <div class="time-display" align="center">
-      <h1>17 minutes</h1>
-      <h2>Intercampus (N)</h2>
+    <div class="time-display" align="center" ng-if="nextBuses != undefined">
+      <h1>{{this.nextBuses[0].timeRemaining}} Minutes</h1>
+      <h2>{{this.nextBuses[0].line}}</h2>
     </div>
 
     <ion-item-divider>
     </ion-item-divider>
     <ion-list>
 
-      <ion-item>
-        <h3 class="alignLeft">CTA 201 (N)</h3>
-        <h3 class="alignRight">21 min</h3>
-
-    </ion-item>
-
-    <ion-item>
-        <h3 class="alignLeft">Campus Loop (S)</h3>
-        <h3 class="alignRight">25 min</h3>
+      <ion-item *ngFor="let nextBus of nextBuses | slice:1">
+        <h3 class="alignLeft">{{nextBus.line}}</h3>
+        <h3 class="alignRight">{{nextBus.timeRemaining}} Minutes</h3>
       </ion-item>
-
-
-
-      <ion-item>
-          <h3 class="alignLeft">Evanston Loop (N)</h3>
-          <h3 class="alignRight">45 min</h3>
-        </ion-item>
-
-
 
     </ion-list>
 
@@ -78,7 +58,5 @@
       </div>
     </ion-item>
   </ion-list>
-
-
 
 </div>
