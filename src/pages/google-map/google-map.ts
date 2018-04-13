@@ -58,6 +58,18 @@ export class GoogleMapPage {
   	console.log(this.location[1] + " location");
   }
 
+  getDistanceUserToStop(){
+  	//TODO: Find the distance from the user loction to Stop location. 
+  }
+
+  pathPlanning(){
+  	//TODO: Plan the path to the stop
+  }
+
+  calculateCostTime(){
+	//TODO: Calculate the Requied time
+  }
+
   closeModal() {
     this.navCtrl.pop();
   }
