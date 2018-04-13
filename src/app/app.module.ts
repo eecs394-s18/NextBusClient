@@ -11,6 +11,7 @@ import { PersonalPage } from '../pages/personal/personal';
 import { StopsPage } from '../pages/stops/stops';
 import { RouteMapPage } from '../pages/route-map/route-map';
 import { StopDetailsPage } from '../pages/stop-details/stop-details';
+import { GoogleMapPage } from '../pages/google-map/google-map';
 
 //for firebase
 import { HttpModule } from '@angular/http';
@@ -36,7 +37,8 @@ const firebaseConfig = {
     PersonalPage,
     StopsPage,
     RouteMapPage,
-    StopDetailsPage
+    StopDetailsPage,
+    GoogleMapPage
   ],
   imports: [
     BrowserModule,
@@ -53,7 +55,8 @@ const firebaseConfig = {
     PersonalPage,
     StopsPage,
     RouteMapPage,
-    StopDetailsPage
+    StopDetailsPage,
+    GoogleMapPage
   ],
   providers: [
     StatusBar,
