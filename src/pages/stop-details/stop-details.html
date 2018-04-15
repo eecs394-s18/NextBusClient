@@ -32,9 +32,11 @@
   </ion-navbar>
 </header>
 
-    <div class="time-display" align="center" ng-if="nextBuses != undefined">
-      <h1>{{this.nextBuses[0].timeRemaining}} Minutes</h1>
-      <h2>{{this.nextBuses[0].line}}</h2>
+    <div class="time-display" align="center">
+      <h1 *ngIf="nextBuses.length > 0">{{this.nextBuses[0].timeRemaining}} Minutes</h1>
+      <h2 *ngIf="nextBuses.length > 0">{{this.nextBuses[0].line}}</h2>
+      <h1 *ngIf="nextBuses.length === 0">No upcoming buses</h1>
+      <h2 *ngIf="nextBuses.length === 0">Come back later</h2>
     </div>
 
     <ion-item-divider>
