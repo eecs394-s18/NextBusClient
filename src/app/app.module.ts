@@ -7,6 +7,7 @@ import { TabsPage } from '../pages/tabs/tabs';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { Geolocation } from '@ionic-native/geolocation';
 import { PersonalPage } from '../pages/personal/personal';
 import { StopsPage } from '../pages/stops/stops';
 import { RouteMapPage } from '../pages/route-map/route-map';
@@ -63,6 +64,7 @@ const firebaseConfig = {
     StatusBar,
     SplashScreen,
     FirebaseProvider,
+    Geolocation,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })

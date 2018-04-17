@@ -4,7 +4,7 @@ import { StopDetailsPage } from '../stop-details/stop-details';
 import { Observable } from 'rxjs/Observable';
 import { FirebaseProvider } from './../../providers/firebase/firebase';
 import { Storage } from '@ionic/storage';
-
+import { Geolocation, Geoposition } from '@ionic-native/geolocation';
 
 /**
  * Generated class for the PersonalPage page.
@@ -19,23 +19,36 @@ import { Storage } from '@ionic/storage';
   templateUrl: 'personal.html',
 })
 export class PersonalPage {
-
+  deviceLocation : Coordinates;
   items: Observable<any[]>;
   favStops: String;
+  
   constructor(
     public navCtrl: NavController,
     public modalCtrl: ModalController,
     public navParams: NavParams,
     public storage: Storage,
     public alertCtrl: AlertController,
-    public firebaseProvider: FirebaseProvider) {
+    public firebaseProvider: FirebaseProvider,
+    private geolocation: Geolocation) {
     this.items = this.firebaseProvider.getBusStops().valueChanges();
     this.favStops = "";
   }
 
   ionViewDidLoad() {
     this.refreshFav();
-    setInterval(() => { this.refreshFav(); }, 3000);
+    setInterval(() => { this.refreshFav(); }, 1000);
+
+    this.geolocation.getCurrentPosition().then((data) => {
+      this.deviceLocation = data.coords;
+    }).catch((error) => {
+      console.log('Error getting location', error);
+    });
+
+    let watch = this.geolocation.watchPosition();
+    watch.subscribe((data) => {
+      this.deviceLocation = data.coords;
+    });
   }
 
   refreshFav() {
