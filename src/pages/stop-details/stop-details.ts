@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavParams, ViewController } from 'ionic-angular';
-
+import { IonicPage, NavParams, ViewController ,ModalController} from 'ionic-angular';
+import { GoogleMapPage } from '../google-map/google-map';
 import { AngularFireList } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import { FirebaseProvider } from './../../providers/firebase/firebase';
@@ -26,8 +26,12 @@ export class StopDetailsPage {
   nextBuses: any;
   fav: boolean;
 
-  constructor(public navParams: NavParams, public view: ViewController, public firebaseProvider: FirebaseProvider) {
-    this.nextBuses = [{ "line": "Loading", "timeRemaining": "xx:xx", "time": "xx:xx" }]
+  constructor(
+    public navParams: NavParams, 
+    public view: ViewController, 
+    public firebaseProvider: FirebaseProvider, 
+    public modalCtrl: ModalController) {
+    this.nextBuses = [{"line": "Loading", "timeRemaining": "xx:xx", "time": "xx:xx"}];
   }
 
   ionViewDidLoad() {
@@ -129,9 +133,16 @@ export class StopDetailsPage {
     this.view.dismiss()
   }
 
+  MapbuttonClick() {
+    var stopInfo = {'stopName': this.stopName,
+                    'location': this.stopLocation};
+                    
+    let mapModal = this.modalCtrl.create(GoogleMapPage,stopInfo);
+    mapModal.present();
+  }
+
   buttonClick() {
 
   }
-
 
 }
