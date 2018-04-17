@@ -36,8 +36,7 @@ export class GoogleMapPage {
   }
 
   initMap(){
-  	document.getElementById("header").innerHTML = this.stopName;
-
+  
   	let latLng = new google.maps.LatLng(this.stopLocationLat, this.stopLocationLng);
 
   	let mapOptions = {
@@ -51,25 +50,7 @@ export class GoogleMapPage {
   		position: latLng,
   		map: this.map
   	})
-  	
-  	console.log("The google is opened");
-  	console.log(this.stopName + " StopName");
-  	console.log(this.location[0] + " location");
-  	console.log(this.location[1] + " location");
   }
-
-  getDistanceUserToStop(){
-  	//TODO: Find the distance from the user loction to Stop location. 
-  }
-
-  pathPlanning(){
-  	//TODO: Plan the path to the stop
-  }
-
-  calculateCostTime(){
-	//TODO: Calculate the Requied time
-  }
-
   closeModal() {
     this.navCtrl.pop();
   }
