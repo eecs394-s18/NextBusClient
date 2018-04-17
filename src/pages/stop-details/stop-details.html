@@ -5,56 +5,62 @@
   Ionic pages and navigation.
 -->
 
-  <div class="modalContent">
+<div class="modalContent">
 
-    <header>
-      <ion-navbar>
-        <ion-buttons start>
+  <header>
+    <ion-navbar>
+      <ion-buttons start>
 
-      <button ion-button clear icon-only (click)="closeModal()" >
+        <button ion-button clear icon-only (click)="closeModal()">
         <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
       </button>
 
-    </ion-buttons>
+      </ion-buttons>
 
       <ion-title align="center">{{this.stopName}}</ion-title>
 
       <ion-buttons end>
-      <button ion-button clear icon-only (click)="buttonClick()">
+        <button ion-button clear icon-only (click)="buttonClick()">
             <ion-icon ios="ios-pin" md="md-pin"></ion-icon>
       </button>
 
-      <button ion-button clear icon-only class="favoriteButton" (click)="buttonClick()">
-             <ion-icon ios="ios-star-outline" md="md-star"></ion-icon>
+        <button ion-button clear icon-only class="favoriteButton" (click)="addFav(this.stopName)">
+                  <!-- <ion-icon name="arrow-drop down-circle" *ngIf="!visible"></ion-icon> -->
+                   <ion-icon ios="ios-star-outline" md="md-star-outline" *ngIf="!fav"></ion-icon>
+                   <ion-icon ios="ios-star" md="md-star" *ngIf="fav"></ion-icon>
+
+
+      <!-- <button ion-button clear icon-only class="favoriteButton" (click)="buttonClick()">
+             <ion-icon ios="ios-star-outline" md="md-star"></ion-icon> -->
       </button>
-    </ion-buttons>
+      </ion-buttons>
 
-  </ion-navbar>
-</header>
+    </ion-navbar>
+  </header>
 
-    <div class="time-display" align="center">
-      <h1 *ngIf="nextBuses.length > 0">{{this.nextBuses[0].timeRemaining}} Minutes</h1>
-      <h2 *ngIf="nextBuses.length > 0">{{this.nextBuses[0].line}}</h2>
-      <h1 *ngIf="nextBuses.length === 0">No upcoming buses</h1>
-      <h2 *ngIf="nextBuses.length === 0">Come back later</h2>
-    </div>
+  <div class="time-display" align="center">
+    <h1 *ngIf="nextBuses.length > 0">{{this.nextBuses[0].timeRemaining}} Minutes</h1>
+    <h2 *ngIf="nextBuses.length > 0">{{this.nextBuses[0].line}}</h2>
+    <h1 *ngIf="nextBuses.length === 0">No upcoming buses</h1>
+    <h2 *ngIf="nextBuses.length === 0">Come back later</h2>
+  </div>
 
-    <ion-item-divider>
-    </ion-item-divider>
-    <ion-list>
+  <ion-item-divider>
+  </ion-item-divider>
+  <ion-list>
 
-      <ion-item *ngFor="let nextBus of nextBuses | slice:1">
-        <h3 class="alignLeft">{{nextBus.line}}</h3>
-        <h3 class="alignRight">{{nextBus.timeRemaining}} Minutes</h3>
-      </ion-item>
+    <ion-item *ngFor="let nextBus of nextBuses | slice:1">
+      <h3 class="alignLeft">{{nextBus.line}}</h3>
+      <h3 class="alignRight">{{nextBus.timeRemaining}} Minutes</h3>
+    </ion-item>
 
-    </ion-list>
+  </ion-list>
 
 
   <ion-list>
     <ion-item>
-      <div align="center" class = "button-bar">
-        <button ion-button clear class = "serviceNotes" (click)="buttonClick()">
+      <div align="center" class="button-bar">
+        <button ion-button clear class="serviceNotes" (click)="buttonClick()">
           Service Notes
         </button>
       </div>

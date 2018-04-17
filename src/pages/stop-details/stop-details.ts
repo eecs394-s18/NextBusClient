@@ -24,12 +24,14 @@ export class StopDetailsPage {
   stopLines: Observable<any[]>;
   stopLocation: Observable<any[]>;
   nextBuses: any;
+  fav: boolean;
 
   constructor(public navParams: NavParams, public view: ViewController, public firebaseProvider: FirebaseProvider) {
-    this.nextBuses = [{"line": "Loading", "timeRemaining": "xx:xx", "time": "xx:xx"}]
+    this.nextBuses = [{ "line": "Loading", "timeRemaining": "xx:xx", "time": "xx:xx" }]
   }
 
   ionViewDidLoad() {
+    this.fav = false;
     this.stopName = this.navParams.data.stopName;
     var d = new Date();
     this.stopID = this.navParams.data.stopID;
@@ -38,11 +40,11 @@ export class StopDetailsPage {
     this.stopLocation = this.firebaseProvider.getStopLocation(this.stopID).snapshotChanges();
 
     console.log("stopDetail id: " + this.stopID);
-    
+
     // Get firebase changes in real time from observable
     this.stopLocation.subscribe();
     this.stopLines.subscribe();
-    this.stopTime.subscribe(times => { 
+    this.stopTime.subscribe(times => {
       this.nextBuses = this.getNextBusesInOrder(times);
     });
 
@@ -65,7 +67,11 @@ export class StopDetailsPage {
     });
   }
 
-  convertTimeStringToDateTime(timeString: string) : Date {
+  addFav(stopName) {
+    this.fav = !this.fav;
+  }
+
+  convertTimeStringToDateTime(timeString: string): Date {
     if (timeString === undefined) {
       return;
     }
@@ -77,20 +83,20 @@ export class StopDetailsPage {
     return newDate;
   }
 
-  timeRemainingFromT1ToT2(t1: Date, t2: Date) : number {
-    const minMask: number = 60*1000;
+  timeRemainingFromT1ToT2(t1: Date, t2: Date): number {
+    const minMask: number = 60 * 1000;
     const secMask: number = 1000;
 
-    var diffInMs: number = <any>t2-<any>t1; // any is needed to supress typescript error which complains about date arithmetic
+    var diffInMs: number = <any>t2 - <any>t1; // any is needed to supress typescript error which complains about date arithmetic
     var diffRemaining: number = diffInMs;
-    var diffMins: number = Math.trunc(diffRemaining/minMask);
+    var diffMins: number = Math.trunc(diffRemaining / minMask);
     var diffRemaining: number = diffRemaining % minMask;
-    var diffSeconds: number = Math.trunc(diffRemaining/secMask);
+    var diffSeconds: number = Math.trunc(diffRemaining / secMask);
 
     return diffMins;
   }
 
-  getNextBusesInOrder(todayBusTimes: any): any { 
+  getNextBusesInOrder(todayBusTimes: any): any {
     var now: Date = new Date();
 
     var nextBuses: any[] = [];
@@ -99,15 +105,17 @@ export class StopDetailsPage {
       var busTime: Date = this.convertTimeStringToDateTime(timeLocationObj.time);
       if (busTime > now) {
         var timeToThisBus = this.timeRemainingFromT1ToT2(now, busTime);
-        let thisBus = {"time": timeLocationObj.time, 
-                      "line": timeLocationObj.line,
-                      "timeRemaining": timeToThisBus};
+        let thisBus = {
+          "time": timeLocationObj.time,
+          "line": timeLocationObj.line,
+          "timeRemaining": timeToThisBus
+        };
         nextBuses.push(thisBus);
       }
     }
 
     // sorting the next buses based on time of arrival
-    nextBuses.sort( function(a, b) : number {
+    nextBuses.sort(function(a, b): number {
       if (a.time > b.time) {
         return 1;
       }
