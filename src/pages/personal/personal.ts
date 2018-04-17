@@ -19,7 +19,7 @@ export class PersonalPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad PersonalPage');
+    console.log('ionViewDidLoad PersonalPage Changed');
   }
 
 }
