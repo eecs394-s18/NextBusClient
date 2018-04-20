@@ -20,6 +20,9 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireModule } from 'angularfire2';
 import { FirebaseProvider } from './../providers/firebase/firebase';
 // import { FirebaseProvider } from '../providers/firebase/firebase';
+// for storage
+import { File } from '@ionic-native/file';
+import { IonicStorageModule } from '@ionic/storage';
 
 const firebaseConfig = {
   apiKey: "AIzaSyCGu9TTnXfE5R1IIgnX4E7cEfoXIcm_L1k",
@@ -46,6 +49,7 @@ const firebaseConfig = {
     HttpClientModule,
     AngularFireDatabaseModule,
     AngularFireModule.initializeApp(firebaseConfig),
+    IonicStorageModule.forRoot(),
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -59,6 +63,7 @@ const firebaseConfig = {
     GoogleMapPage
   ],
   providers: [
+    File,
     StatusBar,
     SplashScreen,
     FirebaseProvider,

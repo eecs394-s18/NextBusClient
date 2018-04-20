@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavParams, ViewController ,ModalController} from 'ionic-angular';
+import { IonicPage, NavParams, ViewController, ModalController } from 'ionic-angular';
 import { GoogleMapPage } from '../google-map/google-map';
 import { AngularFireList } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import { FirebaseProvider } from './../../providers/firebase/firebase';
+import { Storage } from '@ionic/storage';
 /**
  * Generated class for the StopDetailsPage  page.
  *
@@ -26,12 +27,14 @@ export class StopDetailsPage {
   nextBuses: any;
   fav: boolean;
 
+  // <<<<<<< HEAD
   constructor(
-    public navParams: NavParams, 
-    public view: ViewController, 
-    public firebaseProvider: FirebaseProvider, 
+    public navParams: NavParams,
+    public view: ViewController,
+    public firebaseProvider: FirebaseProvider,
+    public storage: Storage,
     public modalCtrl: ModalController) {
-    this.nextBuses = [{"line": "Loading", "timeRemaining": "xx:xx", "time": "xx:xx"}];
+    this.nextBuses = [{ "line": "Loading", "timeRemaining": "xx:xx", "time": "xx:xx" }];
   }
 
   ionViewDidLoad() {
@@ -55,6 +58,7 @@ export class StopDetailsPage {
     setInterval(() => {
       this.refreshNextBusTimes();
     }, 60000); //60000 milliseconds is 1 minute
+    this.storage.get('favorite-stops').then(data => this.fav = data.includes(this.stopName)).catch(err => console.log("read error"));
   }
 
   refreshNextBusTimes() {
@@ -71,9 +75,6 @@ export class StopDetailsPage {
     });
   }
 
-  addFav(stopName) {
-    this.fav = !this.fav;
-  }
 
   convertTimeStringToDateTime(timeString: string): Date {
     if (timeString === undefined) {
@@ -134,15 +135,31 @@ export class StopDetailsPage {
   }
 
   MapbuttonClick() {
-    var stopInfo = {'stopName': this.stopName,
-                    'location': this.stopLocation};
-                    
-    let mapModal = this.modalCtrl.create(GoogleMapPage,stopInfo);
+    var stopInfo = {
+      'stopName': this.stopName,
+      'location': this.stopLocation
+    };
+
+
+    let mapModal = this.modalCtrl.create(GoogleMapPage, stopInfo);
     mapModal.present();
   }
+
+  addFav(stopName) {
+    var tempData = ',' + stopName;
+    this.fav = !this.fav;
+
+    if (this.fav) {
+      this.storage.get('favorite-stops').then(stops => { tempData = stops + tempData; this.storage.set('favorite-stops', tempData); });
+    }
+    else {
+      this.storage.get('favorite-stops').then(stops => { tempData = stops.replace(tempData, ""); this.storage.set('favorite-stops', tempData); });
+    }
+
+  }
+
 
   buttonClick() {
 
   }
-
 }
