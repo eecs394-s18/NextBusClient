@@ -22,13 +22,13 @@ export class GoogleMapPage {
   stopName: string;
   stopLocationLat: number;
   stopLocationLng: number;
-  location: any[];
+  location: {lat: number, long: number};
+  locationValid: boolean;
+
   constructor(public navCtrl: NavController, public parm:NavParams) {
-  	//TODO: Assign location into this file. 
   	this.stopName = parm.get('stopName');
-  	this.location = parm.get('location');
-  	this.stopLocationLat = 42.055984;
-  	this.stopLocationLng = -87.675171;
+    this.location = parm.get('location');
+    this.locationValid = true;
   }
 
   ionViewDidLoad(){
@@ -36,8 +36,11 @@ export class GoogleMapPage {
   }
 
   initMap(){
-  
-  	let latLng = new google.maps.LatLng(this.stopLocationLat, this.stopLocationLng);
+    if (this.location.lat === 0 && this.location.long === 0) {
+      this.locationValid = false;
+      return;
+    }
+    let latLng = new google.maps.LatLng(this.location.lat, this.location.long);
 
   	let mapOptions = {
   		center: latLng,
