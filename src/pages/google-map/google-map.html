@@ -14,5 +14,6 @@
 </ion-header>
 
 <ion-content padding>
-  <div #map id = 'map'></div>
+  <ion-content *ngIf="!locationValid">Location is not available</ion-content>
+  <div *ngIf="locationValid" #map id = 'map'></div>
 </ion-content>
