@@ -1,6 +1,6 @@
 {
   "name": "NextBus",
-  "app_id": "",
+  "app_id": "d2929201",
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}

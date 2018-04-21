@@ -22,34 +22,39 @@ export class GoogleMapPage {
   stopName: string;
   stopLocationLat: number;
   stopLocationLng: number;
-  location: any[];
-  constructor(public navCtrl: NavController, public parm: NavParams) {
-    //TODO: Assign location into this file.
-    this.stopName = parm.get('stopName');
+
+  location: {lat: number, long: number};
+  locationValid: boolean;
+
+  constructor(public navCtrl: NavController, public parm:NavParams) {
+  	this.stopName = parm.get('stopName');
     this.location = parm.get('location');
-    this.stopLocationLat = 42.055984;
-    this.stopLocationLng = -87.675171;
+    this.locationValid = true;
   }
 
   ionViewDidLoad() {
     this.initMap();
   }
 
-  initMap() {
+  initMap(){
+    if (this.location.lat === 0 && this.location.long === 0) {
+      this.locationValid = false;
+      return;
+    }
+    let latLng = new google.maps.LatLng(this.location.lat, this.location.long);
 
-    let latLng = new google.maps.LatLng(this.stopLocationLat, this.stopLocationLng);
+  	let mapOptions = {
+  		center: latLng,
+  		zoom: 15,
+  		mapTypeId: google.maps.MapTypeId.ROADMAP
+  	};
+  	this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
 
-    let mapOptions = {
-      center: latLng,
-      zoom: 15,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
-    this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+  	var marker = new google.maps.Marker({
+  		position: latLng,
+  		map: this.map
+  	})
 
-    var marker = new google.maps.Marker({
-      position: latLng,
-      map: this.map
-    })
   }
   closeModal() {
     this.navCtrl.pop();
