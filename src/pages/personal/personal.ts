@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { StopDetailsPage } from '../stop-details/stop-details';
+import { Observable } from 'rxjs/Observable';
+import { FirebaseProvider } from './../../providers/firebase/firebase';
+import { Storage } from '@ionic/storage';
+
 
 /**
  * Generated class for the PersonalPage page.
@@ -15,11 +20,32 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class PersonalPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  items: Observable<any[]>;
+  favStops: String;
+  constructor(
+    public navCtrl: NavController,
+    public modalCtrl: ModalController,
+    public navParams: NavParams,
+    public storage: Storage,
+    public firebaseProvider: FirebaseProvider) {
+    this.items = this.firebaseProvider.getBusStops().valueChanges();
+    this.favStops = "";
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad PersonalPage');
+    this.refreshFav();
+    setInterval(() => { this.refreshFav(); }, 3000);
+  }
+
+  refreshFav() {
+    this.storage.get('favorite-stops').then(stops => this.favStops = stops);
+  }
+
+  itemTapped(event, item) {
+    let stopDetailsModal = this.modalCtrl.create(StopDetailsPage,
+      { stopName: item.name, stopID: item.id },
+      { cssClass: 'stopDetailsModal' });
+    stopDetailsModal.present();
   }
 
 }

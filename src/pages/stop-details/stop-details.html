@@ -20,20 +20,12 @@
       <ion-title align="center">{{this.stopName}}</ion-title>
 
       <ion-buttons end>
-
-      <button ion-button clear icon-only class="googleMapPin" (click)="MapbuttonClick()">
-
+        <button ion-button clear icon-only class="googleMapPin" (click)="MapbuttonClick()">
             <ion-icon ios="ios-pin" md="md-pin"></ion-icon>
       </button>
-
         <button ion-button clear icon-only class="favoriteButton" (click)="addFav(this.stopName)">
-                  <!-- <ion-icon name="arrow-drop down-circle" *ngIf="!visible"></ion-icon> -->
                    <ion-icon ios="ios-star-outline" md="md-star-outline" *ngIf="!fav"></ion-icon>
                    <ion-icon ios="ios-star" md="md-star" *ngIf="fav"></ion-icon>
-
-
-      <!-- <button ion-button clear icon-only class="favoriteButton" (click)="buttonClick()">
-             <ion-icon ios="ios-star-outline" md="md-star"></ion-icon> -->
       </button>
       </ion-buttons>
 

@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams} from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 /**
  * Generated class for the GoogleMapPage page.
@@ -7,7 +7,7 @@ import { IonicPage, NavController, NavParams} from 'ionic-angular';
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
-
+declare var google; //add it to work in my laptop, feel free to remove it. Xiao
 @IonicPage()
 @Component({
   selector: 'page-google-map',
@@ -17,11 +17,12 @@ export class GoogleMapPage {
 
   // Receive the Stop Name and location
 
-  @ViewChild ('map') mapElement;
+  @ViewChild('map') mapElement;
   map: any;
   stopName: string;
   stopLocationLat: number;
   stopLocationLng: number;
+
   location: {lat: number, long: number};
   locationValid: boolean;
 
@@ -31,8 +32,8 @@ export class GoogleMapPage {
     this.locationValid = true;
   }
 
-  ionViewDidLoad(){
-  	this.initMap();
+  ionViewDidLoad() {
+    this.initMap();
   }
 
   initMap(){
@@ -53,6 +54,7 @@ export class GoogleMapPage {
   		position: latLng,
   		map: this.map
   	})
+
   }
   closeModal() {
     this.navCtrl.pop();
