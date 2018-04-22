@@ -1,9 +1,5 @@
-// import { HttpClient } from '@angular/common/http';
-// import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { HttpModule } from '@angular/http';
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
+import { AngularFireDatabase } from 'angularfire2/database';
 /*
   Generated class for the FirebaseProvider provider.
 

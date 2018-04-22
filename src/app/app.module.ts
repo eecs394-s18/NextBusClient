@@ -15,13 +15,11 @@ import { GoogleMapPage } from '../pages/google-map/google-map';
 
 //for firebase
 import { HttpModule } from '@angular/http';
-import { HttpClientModule } from '@angular/common/http';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireModule } from 'angularfire2';
 import { FirebaseProvider } from './../providers/firebase/firebase';
-// import { FirebaseProvider } from '../providers/firebase/firebase';
+
 // for storage
-import { File } from '@ionic-native/file';
 import { IonicStorageModule } from '@ionic/storage';
 
 const firebaseConfig = {
@@ -46,7 +44,6 @@ const firebaseConfig = {
   imports: [
     BrowserModule,
     HttpModule,
-    HttpClientModule,
     AngularFireDatabaseModule,
     AngularFireModule.initializeApp(firebaseConfig),
     IonicStorageModule.forRoot(),
@@ -63,7 +60,6 @@ const firebaseConfig = {
     GoogleMapPage
   ],
   providers: [
-    File,
     StatusBar,
     SplashScreen,
     FirebaseProvider,

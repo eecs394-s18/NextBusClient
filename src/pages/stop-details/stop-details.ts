@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavParams, ViewController, ModalController } from 'ionic-angular';
 import { GoogleMapPage } from '../google-map/google-map';
-import { AngularFireList } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import { FirebaseProvider } from './../../providers/firebase/firebase';
 import { Storage } from '@ionic/storage';
@@ -27,7 +26,6 @@ export class StopDetailsPage {
   nextBuses: any;
   fav: boolean;
 
-  // <<<<<<< HEAD
   constructor(
     public navParams: NavParams,
     public view: ViewController,

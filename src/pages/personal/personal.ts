@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { StopDetailsPage } from '../stop-details/stop-details';
-import { AngularFireList } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import { FirebaseProvider } from './../../providers/firebase/firebase';
 import { Storage } from '@ionic/storage';
