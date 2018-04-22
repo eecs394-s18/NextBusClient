@@ -22,9 +22,10 @@ export class StopDetailsPage {
   public stopID: string;
   stopTime: Observable<any[]>;
   stopLines: Observable<any[]>;
-  stopLocation: Observable<any[]>;
+  stopLocationFireBase: Observable<any[]>;
   nextBuses: any;
   fav: boolean;
+  stopLocation : {lat: number, long: number};
 
   constructor(
     public navParams: NavParams,
@@ -32,7 +33,8 @@ export class StopDetailsPage {
     public firebaseProvider: FirebaseProvider,
     public storage: Storage,
     public modalCtrl: ModalController) {
-    this.nextBuses = [{ "line": "Loading", "timeRemaining": "xx:xx", "time": "xx:xx" }];
+    this.nextBuses = [{"line": "Loading", "timeRemaining": "xx:xx", "time": "xx:xx"}];
+    this.stopLocation = {lat: 0, long: 0}; //default definition
   }
 
   ionViewDidLoad() {
@@ -42,12 +44,17 @@ export class StopDetailsPage {
     this.stopID = this.navParams.data.stopID;
     this.stopTime = this.firebaseProvider.getstopTimes(this.stopID, d.getDay()).valueChanges();
     this.stopLines = this.firebaseProvider.getStopLines(this.stopID).valueChanges();
-    this.stopLocation = this.firebaseProvider.getStopLocation(this.stopID).snapshotChanges();
+    this.stopLocationFireBase = this.firebaseProvider.getStopLocation(this.stopID).snapshotChanges();
 
     console.log("stopDetail id: " + this.stopID);
 
     // Get firebase changes in real time from observable
-    this.stopLocation.subscribe();
+    this.stopLocationFireBase.subscribe(location => {
+      if (location.length > 0) {
+        this.stopLocation.lat = location[0].payload.val();
+        this.stopLocation.long = location[1].payload.val();
+      }
+    });
     this.stopLines.subscribe();
     this.stopTime.subscribe(times => {
       this.nextBuses = this.getNextBusesInOrder(times);
