@@ -7,8 +7,10 @@
 <ion-header>
 
   <ion-navbar>
-  	<button ion-button clear icon-only (click)="closeModal()">Back</button>
-    <ion-title id = "header" >{{this.stopName}}</ion-title>
+  	<ion-buttons left>
+      <button ion-button clear icon-only (click)="closeModal()">Back</button>
+  </ion-buttons>
+    <ion-title align = "center" id = "header" >{{this.stopName}}</ion-title>
   </ion-navbar>
 
 </ion-header>
