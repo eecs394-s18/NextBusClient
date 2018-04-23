@@ -22,7 +22,7 @@
 
 <ion-content>
   <div class="time-display" align="center">
-    <h1 *ngIf="nextBuses.length > 0">{{this.nextBuses[0].timeRemaining}} Minutes</h1>
+    <h1 *ngIf="nextBuses.length > 0">{{this.nextBuses[0].showString}}</h1>
     <h2 *ngIf="nextBuses.length > 0">{{this.nextBuses[0].line}}</h2>
     <h1 *ngIf="nextBuses.length === 0">No upcoming buses</h1>
     <h2 *ngIf="nextBuses.length === 0">Come back later</h2>
@@ -32,7 +32,7 @@
   <ion-list>
     <ion-item *ngFor="let nextBus of nextBuses | slice:1">
       <h3 class="alignLeft">{{nextBus.line}}</h3>
-      <h3 class="alignRight">{{nextBus.timeRemaining}} Minutes</h3>
+      <h3 class="alignRight">{{nextBus.showString}}</h3>
     </ion-item>
   </ion-list>
   <ion-list>

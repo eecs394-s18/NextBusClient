@@ -26,14 +26,13 @@ export class StopDetailsPage {
   nextBuses: any;
   fav: boolean;
   stopLocation : {lat: number, long: number};
-
   constructor(
     public navParams: NavParams,
     public view: ViewController,
     public firebaseProvider: FirebaseProvider,
     public storage: Storage,
     public modalCtrl: ModalController) {
-    this.nextBuses = [{"line": "Loading", "timeRemaining": "xx:xx", "time": "xx:xx"}];
+    this.nextBuses = [{"line": "Loading", "timeRemaining": "xx:xx", "time": "xx:xx", "showString": "xx Minute"}];
     this.stopLocation = {lat: 0, long: 0}; //default definition
   }
 
@@ -58,28 +57,41 @@ export class StopDetailsPage {
     this.stopLines.subscribe();
     this.stopTime.subscribe(times => {
       this.nextBuses = this.getNextBusesInOrder(times);
+      console.log("time remain 1 " + this.nextBuses[0]['timeRemaining']);
     });
-
+    console.log("time remain 2" + this.nextBuses[0]['timeRemaining']);
+    this.refreshNextBusTimes();
     setInterval(() => {
       this.refreshNextBusTimes();
     }, 60000); //60000 milliseconds is 1 minute
     this.storage.get('favorite-stops').then(data => this.fav = data.includes(this.stopName)).catch(err => console.log("read error"));
   }
-
+  // This part needs to be changed in the future every time refreshes find the time and then 
   refreshNextBusTimes() {
     if (this.nextBuses === undefined) {
+      console.log("refresh");
       return;
     }
     this.nextBuses.forEach(nextBus => {
+
       let currentMins = nextBus['timeRemaining'];
+      console.log(nextBus['timeRemaining'] + "The remain time");
       if (currentMins === 0) {
-        console.log('remove bus maybe, show survey maybe')
-      } else {
-        nextBus['timeRemaining'] = currentMins - 1;
+        console.log('remove bus maybe, show survey maybe');
+      } else if(currentMins < 60) {
+        nextBus['timeRemaining'] = currentMins-1;
+        nextBus.showString = nextBus['timeRemaining'] + "Minutes";
+      } else if(currentMins >= 60){
+       nextBus['timeRemaining'] = currentMins-1 ;
+       var hours = Math.floor(nextBus['timeRemaining'] / 60);
+       var minutes = nextBus['timeRemaining'] % 60;
+       nextBus.showString = hours + "H " + minutes +"M";
+      }else {
+        console.log("Some eles case in refreshNextBusTime");
+        return;
       }
     });
   }
-
 
   convertTimeStringToDateTime(timeString: string): Date {
     if (timeString === undefined) {
@@ -115,12 +127,22 @@ export class StopDetailsPage {
       var busTime: Date = this.convertTimeStringToDateTime(timeLocationObj.time);
       if (busTime > now) {
         var timeToThisBus = this.timeRemainingFromT1ToT2(now, busTime);
+        var showTime;
+        if(timeToThisBus < 60 ){
+          showTime = timeToThisBus+"M";
+        }else if (timeToThisBus >= 60){
+          var hours = Math.floor(timeToThisBus / 60);
+          var minutes = timeToThisBus % 60;
+          showTime = hours + "H " + minutes +"M";
+        }
         let thisBus = {
           "time": timeLocationObj.time,
           "line": timeLocationObj.line,
-          "timeRemaining": timeToThisBus
+          "timeRemaining": timeToThisBus,
+          "showString":showTime
         };
         nextBuses.push(thisBus);
+
       }
     }
 
