@@ -135,10 +135,6 @@ export class StopDetailsPage {
     return nextBuses;
   }
 
-  closeModal() {
-    this.view.dismiss()
-  }
-
   MapbuttonClick() {
     var stopInfo = {
       'stopName': this.stopName,

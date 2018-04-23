@@ -42,10 +42,8 @@ export class PersonalPage {
   }
 
   itemTapped(event, item) {
-    let stopDetailsModal = this.modalCtrl.create(StopDetailsPage,
-      { stopName: item.name, stopID: item.id },
-      { cssClass: 'stopDetailsModal' });
-    stopDetailsModal.present();
+    let stopDetailsModal = this.navCtrl.push(StopDetailsPage,
+      { stopName: item.name, stopID: item.id });
   }
 
 }
