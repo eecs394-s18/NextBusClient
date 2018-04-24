@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
 import { StopDetailsPage } from '../stop-details/stop-details';
 import { Observable } from 'rxjs/Observable';
 import { FirebaseProvider } from './../../providers/firebase/firebase';
@@ -27,6 +27,7 @@ export class PersonalPage {
     public modalCtrl: ModalController,
     public navParams: NavParams,
     public storage: Storage,
+    public alertCtrl: AlertController,
     public firebaseProvider: FirebaseProvider) {
     this.items = this.firebaseProvider.getBusStops().valueChanges();
     this.favStops = "";
@@ -44,6 +45,15 @@ export class PersonalPage {
   itemTapped(event, item) {
     let stopDetailsModal = this.navCtrl.push(StopDetailsPage,
       { stopName: item.name, stopID: item.id });
+  }
+
+  infoButtonClick() {
+    let alert = this.alertCtrl.create({
+      title: 'Favorites',
+      subTitle: "To add another stop: <br/> 1) Go to the stops page <br/> 2) Select a stop <br/> 3) Click the star on the top right",
+      buttons: ['got it']
+    });
+    alert.present();
   }
 
 }
