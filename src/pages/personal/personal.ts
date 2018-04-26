@@ -19,10 +19,11 @@ import { Geolocation, Geoposition } from '@ionic-native/geolocation';
   templateUrl: 'personal.html',
 })
 export class PersonalPage {
+  stops: Observable<any[]>;
   deviceLocation : Coordinates;
-  items: Observable<any[]>;
   favStops: String;
-  
+  myLocation: {lat: number, long: number};
+  closestStops: any[];
   constructor(
     public navCtrl: NavController,
     public modalCtrl: ModalController,
@@ -31,8 +32,10 @@ export class PersonalPage {
     public alertCtrl: AlertController,
     public firebaseProvider: FirebaseProvider,
     private geolocation: Geolocation) {
-    this.items = this.firebaseProvider.getBusStops().valueChanges();
+    this.myLocation = {lat: 42.0528027, long: -87.6746903}; // canned coordinates for now, get actual user location
+    this.stops = this.firebaseProvider.getBusStops().valueChanges();
     this.favStops = "";
+    this.closestStops = [];
   }
 
   ionViewDidLoad() {
@@ -49,6 +52,40 @@ export class PersonalPage {
     watch.subscribe((data) => {
       this.deviceLocation = data.coords;
     });
+    
+    // find closest stops
+    this.findClosestStops()
+  }
+
+  findClosestStops() {
+    this.stops.subscribe(stops => {
+      stops.forEach(stop => {
+        var this_stop_location = stop['location']
+        var this_stop_lat = this_stop_location['Latitude']
+        var this_stop_long = this_stop_location['Longitude']
+        // calculate distance of every stops
+        var distance_to_stop = this.calculateDistance(this.myLocation.lat, this_stop_lat,
+                                          this.myLocation.long, this_stop_long)
+        if (distance_to_stop < 0.5) {
+          // get all stops in a 500 metre radius
+          this.closestStops.push({stop: stop, distance: distance_to_stop})
+        }
+      })
+      // get the closest 4 stops
+      this.closestStops.sort((stopA, stopB) => {
+        return stopA.distance - stopB.distance;
+      });
+      this.closestStops = this.closestStops.slice(0,4)
+      console.log(this.closestStops)
+    })
+  }
+
+  calculateDistance(lat1:number,lat2:number,long1:number,long2:number){
+    let p = 0.017453292519943295;    // Math.PI / 180
+    let c = Math.cos;
+    let a = 0.5 - c((lat1-lat2) * p) / 2 + c(lat2 * p) *c((lat1) * p) * (1 - c(((long1- long2) * p))) / 2;
+    let dis = (12742 * Math.asin(Math.sqrt(a))); // 2 * R; R = 6371 km
+    return dis;
   }
 
   refreshFav() {

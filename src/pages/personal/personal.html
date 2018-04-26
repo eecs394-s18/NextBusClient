@@ -23,12 +23,9 @@
 
 <ion-content>
   <ion-list>
-    <!-- <button ion-item *ngFor="let item of items | async" (click)="itemTapped($event, item)">
-        {{item.name}}
-      </button> -->
-    <div *ngFor="let item of items | async">
-      <button ion-item *ngIf="favStops != null && favStops.includes(item.name)" (click)="itemTapped($event, item)">
-           {{item.name}}
+    <div *ngFor="let stop of stops | async">
+      <button ion-item *ngIf="favStops != null && favStops.includes(stop.name)" (click)="itemTapped($event, stop)">
+           {{stop.name}}
           </button>
     </div>
   </ion-list>
