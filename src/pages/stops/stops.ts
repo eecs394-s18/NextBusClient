@@ -19,34 +19,36 @@ import { FirebaseProvider } from './../../providers/firebase/firebase';
 export class StopsPage {
 
   items: Observable<any[]>;
-  stopNames: any;
+  stops: any;
   temp: any;
+  ID: any;
   // busStopsRef: AngularFireList<any>;
   constructor(public navCtrl: NavController, public modalCtrl: ModalController, public navParams: NavParams, public firebaseProvider: FirebaseProvider) {
     // this.busStopsRef = this.firebaseProvider.getBusStops();
     // this.busStops = this.busStopsRef.valueChanges();
     this.items = this.firebaseProvider.getBusStops().valueChanges();
-    this.stopNames = [];
+    this.stops = [];
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad StopsPage');
     this.items = this.firebaseProvider.getBusStops().valueChanges();
     this.items.subscribe(item => {
-      this.stopNames = this.getBusNames(item);
+      this.stops = this.getBusNames(item);
     });
 
     
 
-    var ID = setInterval(() => {
-      this.refreshStopNames();
+    this.ID = setInterval(() => {
+      this.refreshstops();
+      console.log(this.stops)
     }, 1000); //60000 milliseconds is 1 minute
 
-    if (this.stopNames != []){
-      console.log(this.stopNames)
-      this.temp = this.stopNames
-      clearInterval(ID);
-    }
+    // if (this.stops != []){
+    //   console.log(this.stops)
+    //   this.temp = this.stops
+    //   clearInterval(ID);
+    // }
   }
 
   itemTapped(event, item) {
@@ -55,27 +57,32 @@ export class StopsPage {
   }
 
   initializeItems() {
-    this.temp = this.stopNames
+    this.temp = this.stops
   }
 
   getBusNames(busStops: any): any {
 
-    var stopNames: any[] = [];
+    var stops: any[] = [];
     for (var stopKey in busStops) {
       var busStopObj: any = busStops[stopKey];
-      stopNames.push(busStopObj["name"]);
+      let stop = {
+        "name" : busStopObj["name"],
+        "id" : busStopObj["id"]
       }
-    // console.log(stopNames)
+      stops.push(stop);
+      }
+    // console.log(stops)
 
-    return stopNames;
+    return stops;
   }
 
-  refreshStopNames() {
-    if (this.stopNames === undefined) {
+  refreshstops() {
+    if (this.stops === []) {
       return;
     }
-    this.temp = this.stopNames
-    // console.log(this.stopNames);
+    this.temp = this.stops
+    clearInterval(this.ID);
+    // console.log(this.stops);
   }
 
   getItems(ev: any) {
@@ -88,7 +95,7 @@ export class StopsPage {
     // if the value is an empty string don't filter the items
     if (val && val.trim() != '') {
       this.temp = this.temp.filter((stopname) => {
-        return (stopname.toLowerCase().indexOf(val.toLowerCase()) > -1);
+        return (stopname.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
       })
     }
   }
