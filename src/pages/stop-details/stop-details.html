@@ -17,6 +17,8 @@
     <ion-title class='tempTitle' align="center">{{this.stopName}}</ion-title>
   </ion-navbar>
 
+
+
   <ion-buttons align='center'>
     <button ion-button clear icon-only class="googleMapPin" (click)="MapbuttonClick()">
         <ion-icon ios="ios-pin" md="md-pin"> </ion-icon>
@@ -33,8 +35,9 @@
   </ion-item-divider>
   <ion-list>
     <ion-item>
-      <h3 class="alignLeftBold">{{this.nextBuses[0].line}}</h3>
-      <h3 class="alignRightBold">{{this.nextBuses[0].showString}}</h3>
+      <h3 *ngIf="nextBuses.length > 0" class="alignLeftBold">{{this.nextBuses[0].line}}</h3>
+      <h3 *ngIf="nextBuses.length > 0" class="alignRightBold">{{this.nextBuses[0].showString}}</h3>
+      <h3 *ngIf="nextBuses.length === 0" class="alignLeftBold">No upcoming buses</h3>
     </ion-item>
 
     <ion-item *ngFor="let nextBus of nextBuses | slice:1">
