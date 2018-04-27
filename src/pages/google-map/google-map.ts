@@ -7,7 +7,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
-declare var google; //add it to work in my laptop, feel free to remove it. Xiao
+//declare var google; //add it to work in my laptop, feel free to remove it. Xiao
 @IonicPage()
 @Component({
   selector: 'page-google-map',

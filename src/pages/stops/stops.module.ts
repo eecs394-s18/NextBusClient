@@ -4,7 +4,7 @@ import { StopsPage } from './stops';
 
 @NgModule({
   declarations: [
-    StopsPage,
+    //StopsPage,
   ],
   imports: [
     IonicPageModule.forChild(StopsPage),

@@ -4,7 +4,7 @@ import { RouteMapPage } from './route-map';
 
 @NgModule({
   declarations: [
-    RouteMapPage,
+    //RouteMapPage,
   ],
   imports: [
     IonicPageModule.forChild(RouteMapPage),

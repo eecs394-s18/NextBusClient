@@ -4,7 +4,6 @@ import { GoogleMapPage } from './google-map';
 
 @NgModule({
   declarations: [
-    GoogleMapPage,
   ],
   imports: [
     IonicPageModule.forChild(GoogleMapPage),
