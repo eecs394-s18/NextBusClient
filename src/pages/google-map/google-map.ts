@@ -7,7 +7,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
-//declare var google; //add it to work in my laptop, feel free to remove it. Xiao
+declare var google; //add it to work in my laptop, feel free to remove it. Xiao
 @IonicPage()
 @Component({
   selector: 'page-google-map',
@@ -37,7 +37,6 @@ export class GoogleMapPage {
   }
 
   initMap(){
-    console.log("start the google map");
     if (this.location.lat === 0 && this.location.long === 0) {
       this.locationValid = false;
       return;
@@ -50,29 +49,11 @@ export class GoogleMapPage {
   		mapTypeId: google.maps.MapTypeId.ROADMAP
   	};
   	this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-    // The marker for the bus-stop
+
   	var marker = new google.maps.Marker({
   		position: latLng,
   		map: this.map
   	})
-    console.log("Mark the first point");
-    if (navigator.geolocation) {
-      console.log("Open geolocation");
-      navigator.geolocation.getCurrentPosition(function(currentPos){
-
-      // When I select another stop doesn't work
-
-      var curLat = currentPos.coords.latitude;
-      var curLng = currentPos.coords.longitude;
-
-      // Add a new marker based on the curLat,curLng
-      console.log(curLat);
-      console.log(curLng);
-    },function(){
-      console.log("Cannot find the current location");
-    });}else{
-      console.log("Geolocation cannot be opened");
-    }
 
   }
   closeModal() {
