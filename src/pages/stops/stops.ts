@@ -20,14 +20,9 @@ export class StopsPage {
 
   items: Observable<any[]>;
   stops: any;
-  //lines: any;
-  //templine: any;
-  temp: any;
+  busStoplist: any;
   ID: any;
-  // busStopsRef: AngularFireList<any>;
   constructor(public navCtrl: NavController, public modalCtrl: ModalController, public navParams: NavParams, public firebaseProvider: FirebaseProvider) {
-    // this.busStopsRef = this.firebaseProvider.getBusStops();
-    // this.busStops = this.busStopsRef.valueChanges();
     this.items = this.firebaseProvider.getBusStops().valueChanges();
     this.stops = [];
   }
@@ -39,18 +34,10 @@ export class StopsPage {
       this.stops = this.getBusNames(item);
     });
 
-
-
     this.ID = setInterval(() => {
       this.refreshstops();
       console.log(this.stops)
     }, 1000); //60000 milliseconds is 1 minute
-
-    // if (this.stops != []){
-    //   console.log(this.stops)
-    //   this.temp = this.stops
-    //   clearInterval(ID);
-    // }
   }
 
   itemTapped(event, item) {
@@ -59,8 +46,7 @@ export class StopsPage {
   }
 
   initializeItems() {
-    this.temp = this.stops
-    //this.templine = this.stops["lines"];
+    this.busStoplist = this.stops
   }
 
   getBusNames(busStops: any): any {
@@ -69,12 +55,7 @@ export class StopsPage {
     for (var stopKey in busStops) {
       var busStopObj: any = busStops[stopKey];
 
-
-      // var values = {name: 'misko', gender: 'male'};
       var lines = "";
-      // angular.forEach(busStopObj, function(value, key) {
-      //   this.push("," + value);
-      // }, lines);
 
       Object.keys(busStopObj["lines"]).forEach(function(key, index) {
         lines = lines + busStopObj["lines"][key];
@@ -86,12 +67,8 @@ export class StopsPage {
         "lines": lines
       }
 
-      // console.log(stop);
-      // lines.push(stop)
       stops.push(stop);
     }
-    // console.log(stops)
-
     return stops;
   }
 
@@ -99,9 +76,8 @@ export class StopsPage {
     if (this.stops === []) {
       return;
     }
-    this.temp = this.stops
+    this.busStoplist = this.stops
     clearInterval(this.ID);
-    // console.log(this.stops);
   }
 
   getItems(ev: any) {
@@ -113,9 +89,9 @@ export class StopsPage {
 
     // if the value is an empty string don't filter the items
     if (val && val.trim() != '') {
-      this.temp = this.temp.filter((stop) => {
+      this.busStoplist = this.busStoplist.filter((stop) => {
         return (stop.lines.toLowerCase().indexOf(val.toLowerCase()) > -1 || stop.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
-      })// || this.temp = this.temp.filter((stopname)
+      })
     }
   }
 
