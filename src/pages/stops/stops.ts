@@ -20,6 +20,8 @@ export class StopsPage {
 
   items: Observable<any[]>;
   stops: any;
+  //lines: any;
+  //templine: any;
   temp: any;
   ID: any;
   // busStopsRef: AngularFireList<any>;
@@ -37,7 +39,7 @@ export class StopsPage {
       this.stops = this.getBusNames(item);
     });
 
-    
+
 
     this.ID = setInterval(() => {
       this.refreshstops();
@@ -58,6 +60,7 @@ export class StopsPage {
 
   initializeItems() {
     this.temp = this.stops
+    //this.templine = this.stops["lines"];
   }
 
   getBusNames(busStops: any): any {
@@ -65,12 +68,28 @@ export class StopsPage {
     var stops: any[] = [];
     for (var stopKey in busStops) {
       var busStopObj: any = busStops[stopKey];
+
+
+      // var values = {name: 'misko', gender: 'male'};
+      var lines = "";
+      // angular.forEach(busStopObj, function(value, key) {
+      //   this.push("," + value);
+      // }, lines);
+
+      Object.keys(busStopObj["lines"]).forEach(function(key, index) {
+        lines = lines + busStopObj["lines"][key];
+      });
+      console.log(lines);
       let stop = {
-        "name" : busStopObj["name"],
-        "id" : busStopObj["id"]
+        "name": busStopObj["name"],
+        "id": busStopObj["id"],
+        "lines": lines
       }
+
+      // console.log(stop);
+      // lines.push(stop)
       stops.push(stop);
-      }
+    }
     // console.log(stops)
 
     return stops;
@@ -94,9 +113,9 @@ export class StopsPage {
 
     // if the value is an empty string don't filter the items
     if (val && val.trim() != '') {
-      this.temp = this.temp.filter((stopname) => {
-        return (stopname.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
-      })
+      this.temp = this.temp.filter((stop) => {
+        return (stop.lines.toLowerCase().indexOf(val.toLowerCase()) > -1 || stop.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
+      })// || this.temp = this.temp.filter((stopname)
     }
   }
 
