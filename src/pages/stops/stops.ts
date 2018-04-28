@@ -36,7 +36,6 @@ export class StopsPage {
 
     this.ID = setInterval(() => {
       this.refreshstops();
-      console.log(this.stops)
     }, 1000); //60000 milliseconds is 1 minute
   }
 
@@ -60,7 +59,7 @@ export class StopsPage {
       Object.keys(busStopObj["lines"]).forEach(function(key, index) {
         lines = lines + busStopObj["lines"][key];
       });
-      console.log(lines);
+
       let stop = {
         "name": busStopObj["name"],
         "id": busStopObj["id"],
