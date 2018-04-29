@@ -13,8 +13,9 @@
 </ion-header>
 
 <ion-content>
+  <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
   <ion-list>
-    <button ion-item *ngFor="let item of items | async" (click)="itemTapped($event, item)">
+    <button ion-item *ngFor="let item of busStoplist" (click)="itemTapped($event, item)">
       {{item.name}}
     </button>
   </ion-list>

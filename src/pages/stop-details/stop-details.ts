@@ -58,6 +58,7 @@ export class StopDetailsPage {
     this.stopTime.subscribe(times => {
       this.nextBuses = this.getNextBusesInOrder(times);
     });
+    console.log(this.nextBuses)
     
     setInterval(() => {
       this.refreshNextBusTimes();
