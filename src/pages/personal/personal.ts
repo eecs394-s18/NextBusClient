@@ -61,12 +61,20 @@ export class PersonalPage {
         var this_stop_location = stop['location']
         var this_stop_lat = this_stop_location['Latitude']
         var this_stop_long = this_stop_location['Longitude']
-        // calculate distance of every stops
+        // // calculate distance of every stops
         var distance_to_stop = this.calculateDistance(this.deviceLocation.latitude, this_stop_lat,
                                           this.deviceLocation.longitude, this_stop_long)
         if (distance_to_stop < 0.5) {
           // get all stops in a 500 metre radius
-          this.closestStops.push({stop: stop, distance: distance_to_stop})
+          let stopAlreadyInClosestStops : boolean = false;
+          this.closestStops.forEach(element => {
+            if (stop.name === element.stop.name) {
+              stopAlreadyInClosestStops = true;
+            }
+          });
+          if (!stopAlreadyInClosestStops) {
+            this.closestStops.push({stop: stop, distance: distance_to_stop})
+          }
         }
       })
       // get the closest 4 stops
