@@ -23,9 +23,15 @@
 
 <ion-content>
   Recommended Stops
-  <ion-list>
+  <div *ngIf="closestStops.length === 0">
+    Loading...
+  </div>
+  <ion-list *ngIf="closestStops">
     <div *ngFor="let stop of closestStops">
-      {{stop.stop.name}} {{stop.distance}} miles
+      <!-- {{stop.stop.name}} {{stop.distance}} miles -->
+      <button ion-item (click)="itemTapped($event, stop.stop)">
+        {{stop.stop.name}}
+      </button>
     </div>
   </ion-list>
   Favorites
@@ -36,7 +42,4 @@
       </button>
     </div>
   </ion-list>
-  <ion-content *ngIf="deviceLocation">
-    location = {{this.deviceLocation.latitude}}, {{this.deviceLocation.longitude}} 
-  </ion-content>
 </ion-content>

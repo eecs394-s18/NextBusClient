@@ -32,7 +32,6 @@ export class PersonalPage {
     public alertCtrl: AlertController,
     public firebaseProvider: FirebaseProvider,
     private geolocation: Geolocation) {
-    this.myLocation = {lat: 42.0528027, long: -87.6746903}; // canned coordinates for now, get actual user location
     this.stops = this.firebaseProvider.getBusStops().valueChanges();
     this.favStops = "";
     this.closestStops = [];
@@ -44,6 +43,7 @@ export class PersonalPage {
 
     this.geolocation.getCurrentPosition().then((data) => {
       this.deviceLocation = data.coords;
+      this.findClosestStops()
     }).catch((error) => {
       console.log('Error getting location', error);
     });
@@ -51,10 +51,8 @@ export class PersonalPage {
     let watch = this.geolocation.watchPosition();
     watch.subscribe((data) => {
       this.deviceLocation = data.coords;
+      this.findClosestStops()
     });
-    
-    // find closest stops
-    this.findClosestStops()
   }
 
   findClosestStops() {
@@ -64,8 +62,8 @@ export class PersonalPage {
         var this_stop_lat = this_stop_location['Latitude']
         var this_stop_long = this_stop_location['Longitude']
         // calculate distance of every stops
-        var distance_to_stop = this.calculateDistance(this.myLocation.lat, this_stop_lat,
-                                          this.myLocation.long, this_stop_long)
+        var distance_to_stop = this.calculateDistance(this.deviceLocation.latitude, this_stop_lat,
+                                          this.deviceLocation.longitude, this_stop_long)
         if (distance_to_stop < 0.5) {
           // get all stops in a 500 metre radius
           this.closestStops.push({stop: stop, distance: distance_to_stop})
@@ -76,7 +74,6 @@ export class PersonalPage {
         return stopA.distance - stopB.distance;
       });
       this.closestStops = this.closestStops.slice(0,4)
-      console.log(this.closestStops)
     })
   }
 
