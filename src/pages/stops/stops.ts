@@ -32,6 +32,7 @@ export class StopsPage {
     this.items = this.firebaseProvider.getBusStops().valueChanges();
     this.items.subscribe(item => {
       this.stops = this.getBusNames(item);
+      this.busStoplist = this.stops;
     });
 
     this.ID = setInterval(() => {
