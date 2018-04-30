@@ -14,6 +14,15 @@
 
 <ion-content>
   <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+
+  <ion-navbar>
+    <button ion-button class = "lineBtn" >Intercampus</button>
+    <button ion-button class = "lineBtn" (click)="filterLine($event, 'Evanston Loop')">Evanston Loop</button>
+    <button ion-button class = "lineBtn" (click)="filterLine($event, 'Campus Loop')">Campus Loop</button>
+    <button ion-button class = "lineBtn">CTA 201</button>
+
+  </ion-navbar>
+
   <ion-list>
     <button ion-item *ngFor="let item of busStoplist" (click)="itemTapped($event, item)">
       {{item.name}}
