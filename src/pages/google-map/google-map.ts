@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import { Geolocation, Geoposition } from '@ionic-native/geolocation';
 /**
  * Generated class for the GoogleMapPage page.
  *
@@ -22,7 +22,7 @@ export class GoogleMapPage {
   stopName: string;
   stopLocationLat: number;
   stopLocationLng: number;
-
+  //device: google.maps.Marker;
   location: {lat: number, long: number};
   locationValid: boolean;
 
@@ -49,13 +49,66 @@ export class GoogleMapPage {
   		mapTypeId: google.maps.MapTypeId.ROADMAP
   	};
   	this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-
+    var currentMap = this.map;
   	var marker = new google.maps.Marker({
   		position: latLng,
   		map: this.map
   	})
+    console.log("Mark the first point");
+    if (navigator.geolocation) {
+      console.log("Open geolocation");
+      navigator.geolocation.getCurrentPosition(function(currentPos){
 
+      var curLat = currentPos.coords.latitude;
+      var curLng = currentPos.coords.longitude;
+      console.log(curLat);
+      console.log(curLng);
+        var device = new google.maps.Marker({
+        position: new google.maps.LatLng(curLat, curLng),
+        icon: {
+          path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+          strokeColor : '#3333FF',
+          strokeWeight : 5,
+          scale: 2.5
+        },
+        draggable: false,
+        shadow : null,
+        zIndex : 999,
+        //title : genProps.pMyLocationTitle,
+      });
+      currentMap.setCenter({lat: curLat,
+                            lng: curLng})
+      device.setMap(currentMap);
+      //this.device = device;
+      // Add a new marker based on the curLat,curLng
+
+    },function(){
+      console.log("Cannot find the current location");
+    });}else{
+      console.log("Geolocation cannot be opened");
+    }
   }
+  // This part is used for changing the direction 
+//   enableOrientationArrow() {
+
+//     if (window.DeviceOrientationEvent) {
+
+//         window.addEventListener('deviceorientation', function(event) {
+//             var alpha = null;
+//             //Check for iOS property
+//             if (event.webkitCompassHeading) {
+//                 alpha = event.webkitCompassHeading;
+//             }
+//             //non iOS
+//             else {
+//                 alpha = event.alpha;
+//             }
+//             var locationIcon = device.get('icon');
+//             locationIcon.rotation = 360 - alpha;
+//             myLocationMarker.set('icon', locationIcon);
+//         }, false);
+//     }
+// }
   closeModal() {
     this.navCtrl.pop();
   }
