@@ -1,46 +1,21 @@
 page-stop-details {
-    .tapPageModal {
-
-    }
-    .tabBarModalCover {
-
-    }
-
-    .modalContent {
-
-        background-color: white;
-    }
 
     .time-display {
-
       align-items: center;
     }
 
-    .alignLeft {
-      float: left;
-
-
-
+    .time-display h1 {
+      font-size: 3em;
+      padding-top: 20px;
     }
 
-    .alignRight {
+    .bus-line {
+      float: left;
+    }
+
+    .bus-time {
       float: right;
     }
-
-    .alignCenter {
-      align-items: center;
-    }
-
-    .serviceNotes {
-
-
-
-    }
-
-    .rightIcon {
-      text-align: right;
-    }
-
 
     .button {
       background-color: Transparent;
