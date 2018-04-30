@@ -7,29 +7,39 @@
 
 <ion-header>
   <ion-navbar>
-    <ion-title align="center">{{this.stopName}}</ion-title>
-    <ion-buttons end>
-    <button ion-button clear icon-only class="googleMapPin" (click)="MapbuttonClick()">
-          <ion-icon ios="ios-pin" md="md-pin"></ion-icon>
-    </button>
-      <button ion-button clear icon-only class="favoriteButton" (click)="addFav(this.stopName)">
-                  <ion-icon ios="ios-star-outline" md="md-star-outline" *ngIf="!fav"></ion-icon>
-                  <ion-icon ios="ios-star" md="md-star" *ngIf="fav"></ion-icon>
-      </button>
-    </ion-buttons>
+    <ion-title align="center">Stop Details</ion-title>
   </ion-navbar>
 </ion-header>
 
+
 <ion-content>
-  <div class="time-display" align="center">
-    <h1 *ngIf="nextBuses.length > 0">{{this.nextBuses[0].showString}}</h1>
-    <h2 *ngIf="nextBuses.length > 0">{{this.nextBuses[0].line}}</h2>
-    <h1 *ngIf="nextBuses.length === 0">No upcoming buses</h1>
-    <h2 *ngIf="nextBuses.length === 0">Come back later</h2>
-  </div>
+  <ion-navbar class='tempTitle'>
+    <ion-title class='tempTitle' align="center">{{this.stopName}}</ion-title>
+  </ion-navbar>
+
+
+
+  <ion-buttons align='center'>
+    <button ion-button clear icon-only class="googleMapPin" (click)="MapbuttonClick()">
+        <ion-icon ios="ios-pin" md="md-pin"> </ion-icon>
+        <ion-title class='seeonMap'>See on Map</ion-title>
+  </button>
+    <button ion-button clear icon-only class="favoriteButton" (click)="addFav(this.stopName)">
+                <ion-icon ios="ios-star-outline" md="md-star-outline" *ngIf="!fav"></ion-icon>
+                <ion-icon ios="ios-star" md="md-star" *ngIf="fav">  </ion-icon>
+                <ion-title *ngIf="!fav">Favorite</ion-title>
+                <ion-title *ngIf="fav">Unfavorite</ion-title>
+    </button>
+  </ion-buttons>
   <ion-item-divider>
   </ion-item-divider>
   <ion-list>
+    <ion-item>
+      <h3 *ngIf="nextBuses.length > 0" class="alignLeftBold">{{this.nextBuses[0].line}}</h3>
+      <h3 *ngIf="nextBuses.length > 0" class="alignRightBold">{{this.nextBuses[0].showString}}</h3>
+      <h3 *ngIf="nextBuses.length === 0" class="alignLeftBold">No upcoming buses</h3>
+    </ion-item>
+
     <ion-item *ngFor="let nextBus of nextBuses | slice:1">
       <h3 class="alignLeft">{{nextBus.line}}</h3>
       <h3 class="alignRight">{{nextBus.showString}}</h3>

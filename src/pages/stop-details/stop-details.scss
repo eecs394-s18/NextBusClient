@@ -27,6 +27,16 @@ page-stop-details {
       float: right;
     }
 
+    .alignLeftBold {
+      float: left;
+      font-weight: bold;
+    }
+
+    .alignRightBold {
+      float: right;
+      font-weight: bold;
+    }
+
     .alignCenter {
       align-items: center;
     }
@@ -50,5 +60,14 @@ page-stop-details {
 
     .googleMapPin{
       color: #E8212D;
+    }
+
+    .button{
+        margin: 3px;
+    }
+
+    .tempTitle{
+        height: 80px;
+        font-size: 200%;    
     }
 }
