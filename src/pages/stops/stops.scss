@@ -1,7 +1,14 @@
 page-stops {
 
-  .lineBtn {
+  .btn-container {
+  	display: grid;
+  	grid-template-columns: 1fr 1fr;
+  	grid-template-rows: 50px 50px;
+  	grid-gap: 3px;
+  	padding: 10px 20px;
+  }
 
+  .btn-container button {
     font-size: 10px;
   }
 

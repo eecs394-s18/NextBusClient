@@ -38,6 +38,9 @@ export class StopsPage {
     this.ID = setInterval(() => {
       this.refreshstops();
     }, 1000); //60000 milliseconds is 1 minute
+
+    this.colorInit();
+
   }
 
   itemTapped(event, item) {
@@ -45,7 +48,14 @@ export class StopsPage {
       { stopName: item.name, stopID: item.id });
   }
 
-  filterLine(ev: any, lineName) {
+  colorInit() { // initializes color in order to be recognized by the color change function
+    document.getElementById("is").style.backgroundColor = "rgb(72, 138, 255)"
+    document.getElementById("cl").style.backgroundColor = "rgb(72, 138, 255)"
+    document.getElementById("el").style.backgroundColor = "rgb(72, 138, 255)"
+    document.getElementById("cta201").style.backgroundColor = "rgb(72, 138, 255)"
+  }
+
+  filterLine(ev: any, lineName, id) {
 
     this.initializeItems();
 
@@ -54,11 +64,35 @@ export class StopsPage {
         return (stop.lines.toLowerCase().indexOf(lineName.toLowerCase()) > -1);
       })
     }
+
+    let currColor = document.getElementById(id).style.backgroundColor;
+
+    console.log(currColor);
+    console.log(currColor);
+
+    if (document.getElementById(id).style.backgroundColor === "rgb(72, 138, 255)") {
+      document.getElementById(id).style.backgroundColor = "rgb(55, 55, 55)";
+    } else {
+      document.getElementById(id).style.backgroundColor = "rgb(72, 138, 255)";
+    }
+
+    console.log(document.getElementById(id).style.backgroundColor);
+
+
   }
 
 
   initializeItems() {
     this.busStoplist = this.stops
+  }
+
+  swap(tag) {
+    let element = document.getElementById(tag); 
+    if (element.style.backgroundColor === "#488aff") {
+      element.style.backgroundColor = "#ffb9a3";
+    } else {
+      element.style.backgroundColor = "#488aff";
+    }
   }
 
   getBusNames(busStops: any): any {
