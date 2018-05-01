@@ -57,6 +57,9 @@ export class StopsPage {
 
   filterLine(ev: any, lineName, id) {
 
+    console.log("here's all the stops");
+    console.log(this.busStoplist);
+
     this.initializeItems();
 
     if (lineName && lineName.trim() != '') {
@@ -67,19 +70,15 @@ export class StopsPage {
 
     let currColor = document.getElementById(id).style.backgroundColor;
 
-    console.log(currColor);
-    console.log(currColor);
-
     if (document.getElementById(id).style.backgroundColor === "rgb(72, 138, 255)") {
       document.getElementById(id).style.backgroundColor = "rgb(55, 55, 55)";
     } else {
       document.getElementById(id).style.backgroundColor = "rgb(72, 138, 255)";
     }
 
-    console.log(document.getElementById(id).style.backgroundColor);
-
-
   }
+
+
 
 
   initializeItems() {
