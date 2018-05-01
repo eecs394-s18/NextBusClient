@@ -14,12 +14,27 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'route-details.html',
 })
 export class RouteDetailsPage {
-
+  sortedStops: any[];
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    let keys = Object.keys(this.navParams.data.routeStops);
+    this.sortStops(keys)
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad RouteDetailsPage');
+  }
+
+  sortStops(keys: any[]) {
+    let sortedKeys = keys.sort((a, b) => this.stopCompare(a, b));
+    this.sortedStops = []
+    sortedKeys.forEach((key) => {
+      this.sortedStops.push(this.navParams.data.routeStops[key]);
+    })
+  }
+
+  stopCompare(a: any, b: any) {
+    var aStopNum: number = Number(a.slice(4, ));
+    var bStopNum: number = Number(b.slice(4, ));
+    return aStopNum - bStopNum;
   }
 
 }
