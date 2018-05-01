@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import { Geolocation, Geoposition } from '@ionic-native/geolocation';
 /**
  * Generated class for the GoogleMapPage page.
  *
@@ -22,7 +22,6 @@ export class GoogleMapPage {
   stopName: string;
   stopLocationLat: number;
   stopLocationLng: number;
-
   location: {lat: number, long: number};
   locationValid: boolean;
 
@@ -49,12 +48,46 @@ export class GoogleMapPage {
   		mapTypeId: google.maps.MapTypeId.ROADMAP
   	};
   	this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-
+    var currentMap = this.map;
   	var marker = new google.maps.Marker({
   		position: latLng,
   		map: this.map
   	})
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(currentPos){
 
+      var curLat = currentPos.coords.latitude;
+      var curLng = currentPos.coords.longitude;
+      console.log(curLat);
+      console.log(curLng);
+      var device = new google.maps.Marker({
+        position: new google.maps.LatLng(curLat, curLng),
+        icon: {
+          path: google.maps.SymbolPath.CIRCLE,
+          radius: 500,
+          strokeColor: "#FFFFFF",
+          strokeOpacity: 0.8,
+          strokeWeight: 7,
+          fillColor: "#3333FF",
+          fillOpacity: 1,
+          scale: 8
+        },
+        draggable: false,
+        shadow : null,
+        zIndex : 999 ,
+
+        map_icon_label: '<span class="map-icon map-icon-point-of-interest"></span>'
+      });
+      currentMap.setCenter({lat: curLat,
+                            lng: curLng})
+      device.setMap(currentMap);
+      // Add a new marker based on the curLat,curLng
+
+    },function(){
+      console.log("Cannot find the current location");
+    });}else{
+      console.log("Geolocation cannot be opened");
+    }
   }
   closeModal() {
     this.navCtrl.pop();
