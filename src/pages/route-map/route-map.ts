@@ -31,7 +31,7 @@ export class RouteMapPage {
 
   onRouteClick(event, route) {
     let routeDetailsModal = this.navCtrl.push(RouteDetailsPage,
-      { routeName: route.name });
+      { routeName: route.name, routeStops: route.stops });
   }
 
 
