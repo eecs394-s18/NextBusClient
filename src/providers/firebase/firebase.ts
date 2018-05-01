@@ -52,4 +52,8 @@ export class FirebaseProvider {
   getStopLines(stopID) {
     return this.afd.list('/busStops/stop' + stopID + '/lines/');
   }
+
+  getRoutes() {
+    return this.afd.list('/routes/');
+  }
 }

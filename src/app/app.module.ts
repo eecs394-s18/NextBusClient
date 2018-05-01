@@ -11,6 +11,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { PersonalPage } from '../pages/personal/personal';
 import { StopsPage } from '../pages/stops/stops';
 import { RouteMapPage } from '../pages/route-map/route-map';
+import { RouteDetailsPage } from '../pages/route-details/route-details';
 import { StopDetailsPage } from '../pages/stop-details/stop-details';
 import { GoogleMapPage } from '../pages/google-map/google-map';
 
@@ -40,6 +41,7 @@ const firebaseConfig = {
     StopsPage,
     RouteMapPage,
     StopDetailsPage,
+    RouteDetailsPage,
     GoogleMapPage
   ],
   imports: [
@@ -58,6 +60,7 @@ const firebaseConfig = {
     StopsPage,
     RouteMapPage,
     StopDetailsPage,
+    RouteDetailsPage,
     GoogleMapPage
   ],
   providers: [
