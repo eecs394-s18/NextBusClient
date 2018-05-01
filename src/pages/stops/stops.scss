@@ -5,11 +5,13 @@ page-stops {
   	grid-template-columns: 1fr 1fr;
   	grid-template-rows: 50px 50px;
   	grid-gap: 3px;
-  	padding: 10px 20px;
+  	padding: 0px 10px;
+  	margin-top: 0;
   }
 
   .btn-container button {
     font-size: 10px;
+    height: 40px;
   }
 
 }
