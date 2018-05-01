@@ -38,6 +38,9 @@ export class StopsPage {
     this.ID = setInterval(() => {
       this.refreshstops();
     }, 1000); //60000 milliseconds is 1 minute
+
+    this.colorInit();
+
   }
 
   itemTapped(event, item) {
@@ -45,8 +48,50 @@ export class StopsPage {
       { stopName: item.name, stopID: item.id });
   }
 
+  colorInit() { // initializes color in order to be recognized by the color change function
+    document.getElementById("is").style.backgroundColor = "rgb(72, 138, 255)"
+    document.getElementById("cl").style.backgroundColor = "rgb(72, 138, 255)"
+    document.getElementById("el").style.backgroundColor = "rgb(72, 138, 255)"
+    document.getElementById("cta201").style.backgroundColor = "rgb(72, 138, 255)"
+  }
+
+  filterLine(ev: any, lineName, id) {
+
+    console.log("here's all the stops");
+    console.log(this.busStoplist);
+
+    this.initializeItems();
+
+    if (lineName && lineName.trim() != '') {
+      this.busStoplist = this.busStoplist.filter((stop) => {
+        return (stop.lines.toLowerCase().indexOf(lineName.toLowerCase()) > -1);
+      })
+    }
+
+    let currColor = document.getElementById(id).style.backgroundColor;
+
+    if (document.getElementById(id).style.backgroundColor === "rgb(72, 138, 255)") {
+      document.getElementById(id).style.backgroundColor = "rgb(55, 55, 55)";
+    } else {
+      document.getElementById(id).style.backgroundColor = "rgb(72, 138, 255)";
+    }
+
+  }
+
+
+
+
   initializeItems() {
     this.busStoplist = this.stops
+  }
+
+  swap(tag) {
+    let color = document.getElementById(tag).style.backgroundColor; 
+    if (color === "#488aff") {
+      color = "#ffb9a3";
+    } else {
+      color = "#488aff";
+    }
   }
 
   getBusNames(busStops: any): any {
@@ -90,7 +135,7 @@ export class StopsPage {
     // if the value is an empty string don't filter the items
     if (val && val.trim() != '') {
       this.busStoplist = this.busStoplist.filter((stop) => {
-        return (stop.lines.toLowerCase().indexOf(val.toLowerCase()) > -1 || stop.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
+        return (stop.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
       })
     }
   }
