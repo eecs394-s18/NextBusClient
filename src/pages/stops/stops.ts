@@ -86,11 +86,11 @@ export class StopsPage {
   }
 
   swap(tag) {
-    let element = document.getElementById(tag); 
-    if (element.style.backgroundColor === "#488aff") {
-      element.style.backgroundColor = "#ffb9a3";
+    let color = document.getElementById(tag).style.backgroundColor; 
+    if (color === "#488aff") {
+      color = "#ffb9a3";
     } else {
-      element.style.backgroundColor = "#488aff";
+      color = "#488aff";
     }
   }
 
