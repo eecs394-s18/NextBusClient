@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { RouteDetailsPage } from '../route-details/route-details';
+import { Observable } from 'rxjs/Observable';
+import { FirebaseProvider } from './../../providers/firebase/firebase';
 
 /**
  * Generated class for the RouteMapPage page.
@@ -15,11 +18,21 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class RouteMapPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  routes: Observable<any[]>;
+  constructor(public navCtrl: NavController, public modalCtrl: ModalController, public navParams: NavParams, public firebaseProvider: FirebaseProvider) {
+    // this.routes = this.firebaseProvider.getRoutes().valueChanges();
+    // this.stops = [];
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad RouteMapPage');
+    console.log('ionViewDidLoad StopsPage');
+    this.routes = this.firebaseProvider.getRoutes().valueChanges();
   }
+
+  onRouteClick(event, route) {
+    let routeDetailsModal = this.navCtrl.push(RouteDetailsPage,
+      { routeName: route.name });
+  }
+
 
 }

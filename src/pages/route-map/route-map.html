@@ -12,7 +12,12 @@
 
 </ion-header>
 
-
-<ion-content padding>
-<img src="/assets/imgs/shuttle-overview.jpg">
+<ion-content>
+  <!-- <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar> -->
+  <ion-list>
+    <!-- <button ion-item *ngFor="let route of routes" (click)="itemTapped($event, item)"> -->
+    <button ion-item *ngFor="let route of routes | async" (click)="onRouteClick($event, route)">
+      {{route.name}}
+    </button>
+  </ion-list>
 </ion-content>
