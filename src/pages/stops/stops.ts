@@ -46,16 +46,12 @@ export class StopsPage {
   }
 
   filterLine(ev: any, lineName) {
-    // Reset items back to all of the items
+
     this.initializeItems();
 
-    // set val to the value of the searchbar
-    let val = lineName;
-
-    // if the value is an empty string don't filter the items
-    if (val && val.trim() != '') {
+    if (lineName && lineName.trim() != '') {
       this.busStoplist = this.busStoplist.filter((stop) => {
-        return (stop.lines.toLowerCase().indexOf(val.toLowerCase()) > -1);
+        return (stop.lines.toLowerCase().indexOf(lineName.toLowerCase()) > -1);
       })
     }
   }

@@ -16,10 +16,12 @@
   <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
 
   <ion-navbar>
-    <button ion-button class = "lineBtn" >Intercampus</button>
-    <button ion-button class = "lineBtn" (click)="filterLine($event, 'Evanston Loop')">Evanston Loop</button>
-    <button ion-button class = "lineBtn" (click)="filterLine($event, 'Campus Loop')">Campus Loop</button>
-    <button ion-button class = "lineBtn">CTA 201</button>
+    <div class="btn-container">
+      <button ion-button (click)="filterLine($event, 'Intercampus(S)')"> Intercampus</button>
+      <button ion-button (click)="filterLine($event, 'Evanston Loop')">Evanston Loop</button>
+      <button ion-button (click)="filterLine($event, 'Campus Loop')">Campus Loop</button>
+      <button ion-button (click)="filterLine($event, '201')"> CTA 201</button>
+    </div>
 
   </ion-navbar>
 
