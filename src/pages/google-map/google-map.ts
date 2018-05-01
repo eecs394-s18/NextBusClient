@@ -22,7 +22,6 @@ export class GoogleMapPage {
   stopName: string;
   stopLocationLat: number;
   stopLocationLng: number;
-  //device: google.maps.Marker;
   location: {lat: number, long: number};
   locationValid: boolean;
 
@@ -54,16 +53,14 @@ export class GoogleMapPage {
   		position: latLng,
   		map: this.map
   	})
-    console.log("Mark the first point");
     if (navigator.geolocation) {
-      console.log("Open geolocation");
       navigator.geolocation.getCurrentPosition(function(currentPos){
 
       var curLat = currentPos.coords.latitude;
       var curLng = currentPos.coords.longitude;
       console.log(curLat);
       console.log(curLng);
-        var device = new google.maps.Marker({
+      var device = new google.maps.Marker({
         position: new google.maps.LatLng(curLat, curLng),
         icon: {
           path: google.maps.SymbolPath.CIRCLE,
@@ -74,18 +71,16 @@ export class GoogleMapPage {
           fillColor: "#3333FF",
           fillOpacity: 1,
           scale: 8
-
         },
         draggable: false,
         shadow : null,
         zIndex : 999 ,
+
         map_icon_label: '<span class="map-icon map-icon-point-of-interest"></span>'
-        //title : genProps.pMyLocationTitle,
       });
       currentMap.setCenter({lat: curLat,
                             lng: curLng})
       device.setMap(currentMap);
-      //this.device = device;
       // Add a new marker based on the curLat,curLng
 
     },function(){
@@ -94,27 +89,6 @@ export class GoogleMapPage {
       console.log("Geolocation cannot be opened");
     }
   }
-  // This part is used for changing the direction 
-//   enableOrientationArrow() {
-
-//     if (window.DeviceOrientationEvent) {
-
-//         window.addEventListener('deviceorientation', function(event) {
-//             var alpha = null;
-//             //Check for iOS property
-//             if (event.webkitCompassHeading) {
-//                 alpha = event.webkitCompassHeading;
-//             }
-//             //non iOS
-//             else {
-//                 alpha = event.alpha;
-//             }
-//             var locationIcon = device.get('icon');
-//             locationIcon.rotation = 360 - alpha;
-//             myLocationMarker.set('icon', locationIcon);
-//         }, false);
-//     }
-// }
   closeModal() {
     this.navCtrl.pop();
   }
