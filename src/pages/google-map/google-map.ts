@@ -66,14 +66,20 @@ export class GoogleMapPage {
         var device = new google.maps.Marker({
         position: new google.maps.LatLng(curLat, curLng),
         icon: {
-          path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
-          strokeColor : '#3333FF',
-          strokeWeight : 5,
-          scale: 2.5
+          path: google.maps.SymbolPath.CIRCLE,
+          radius: 500,
+          strokeColor: "#FFFFFF",
+          strokeOpacity: 0.8,
+          strokeWeight: 7,
+          fillColor: "#3333FF",
+          fillOpacity: 1,
+          scale: 8
+
         },
         draggable: false,
         shadow : null,
-        zIndex : 999,
+        zIndex : 999 ,
+        map_icon_label: '<span class="map-icon map-icon-point-of-interest"></span>'
         //title : genProps.pMyLocationTitle,
       });
       currentMap.setCenter({lat: curLat,
