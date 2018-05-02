@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController} from 'ionic-angular';
 import { Geolocation, Geoposition } from '@ionic-native/geolocation';
 import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-navigator';
 /**
@@ -25,7 +25,8 @@ export class GoogleMapPage {
   launcher:any;
   deviceLocation : Coordinates;
   constructor(public navCtrl: NavController, public parm:NavParams,
-              private launchNavigator: LaunchNavigator,private geolocation: Geolocation) {
+              private launchNavigator: LaunchNavigator,public alertCtrl: AlertController,
+              private geolocation: Geolocation) {
   	this.stopName = parm.get('stopName');
     this.stopLocation = parm.get('location');
     this.locationValid = true;
@@ -99,10 +100,20 @@ export class GoogleMapPage {
       this.launcher.navigate([this.stopLocation.lat,this.stopLocation.long], options)
       .then(
       success => console.log('Launched navigator'),
-      error => console.log('Error launching navigator', error)
-    );
+      error => {let alert = this.alertCtrl.create({
+                title: 'Error',
+                subTitle: "Cannot open GoogleMap",
+                buttons: ['got it']
+                });
+                alert.present();}
+              );
     }).catch((error) => {
-      console.log('Error getting location', error);
+      let alert = this.alertCtrl.create({
+                title: 'Error',
+                subTitle: "Change location permission",
+                buttons: ['got it']
+                });
+                alert.present();
     });
 
   }
