@@ -1,3 +1,26 @@
 page-personal {
 
+  .emptyFavesMsg {
+    font-size: 20px;
+    color: gray;
+    align-items: center;
+  }
+
+  .headline {
+  	font-size: 48px;
+  	padding-top: 35px;
+  	margin-bottom: 20px;
+  	color: #333;
+  	font-weight: bolder;
+    text-align: center;
+  }
+
+  .headline .toolbar-title {
+  	font-size: .5em;
+  }
+
+  .favorite {
+  	padding-bottom: 15px;
+  }
+
 }
