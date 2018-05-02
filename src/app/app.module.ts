@@ -14,6 +14,7 @@ import { RouteMapPage } from '../pages/route-map/route-map';
 import { RouteDetailsPage } from '../pages/route-details/route-details';
 import { StopDetailsPage } from '../pages/stop-details/stop-details';
 import { GoogleMapPage } from '../pages/google-map/google-map';
+import { LaunchNavigator } from '@ionic-native/launch-navigator';
 
 //for firebase
 import { HttpModule } from '@angular/http';
@@ -68,6 +69,7 @@ const firebaseConfig = {
     SplashScreen,
     FirebaseProvider,
     Geolocation,
+    LaunchNavigator,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })

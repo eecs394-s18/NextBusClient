@@ -4,7 +4,7 @@ import { RouteDetailsPage } from './route-details';
 
 @NgModule({
   declarations: [
-    RouteDetailsPage,
+    //RouteDetailsPage,
   ],
   imports: [
     IonicPageModule.forChild(RouteDetailsPage),

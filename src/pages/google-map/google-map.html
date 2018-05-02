@@ -9,7 +9,10 @@
   <ion-navbar>
   	<ion-buttons left>
       <button ion-button clear icon-only (click)="closeModal()">Back</button>
-  </ion-buttons>
+    </ion-buttons>
+    <ion-buttons right>
+      <button ion-button clear icon-only (click)="openApp()">Navigate</button>
+    </ion-buttons>
     <ion-title align = "center" id = "header" >{{this.stopName}}</ion-title>
   </ion-navbar>
 
