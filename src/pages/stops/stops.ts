@@ -49,16 +49,13 @@ export class StopsPage {
   }
 
   colorInit() { // initializes color in order to be recognized by the color change function
-    document.getElementById("is").style.backgroundColor = "rgb(72, 138, 255)"
-    document.getElementById("cl").style.backgroundColor = "rgb(72, 138, 255)"
-    document.getElementById("el").style.backgroundColor = "rgb(72, 138, 255)"
-    document.getElementById("cta201").style.backgroundColor = "rgb(72, 138, 255)"
+    document.getElementById("is").style.backgroundColor = "rgb(140, 140, 140)"
+    document.getElementById("cl").style.backgroundColor = "rgb(140, 140, 140)"
+    document.getElementById("el").style.backgroundColor = "rgb(140, 140, 140)"
+    document.getElementById("cta201").style.backgroundColor = "rgb(140, 140, 140)"
   }
 
   filterLine(ev: any, lineName, id) {
-
-    console.log("here's all the stops");
-    console.log(this.busStoplist);
 
     this.initializeItems();
 
@@ -70,10 +67,11 @@ export class StopsPage {
 
     let currColor = document.getElementById(id).style.backgroundColor;
 
-    if (document.getElementById(id).style.backgroundColor === "rgb(72, 138, 255)") {
-      document.getElementById(id).style.backgroundColor = "rgb(55, 55, 55)";
+    if (document.getElementById(id).style.backgroundColor === "rgb(140, 140, 140)") {
+      document.getElementById(id).style.backgroundColor = "rgb(66, 66, 66)";
     } else {
-      document.getElementById(id).style.backgroundColor = "rgb(72, 138, 255)";
+      this.initializeItems();
+      document.getElementById(id).style.backgroundColor = "rgb(140, 140, 140)";
     }
 
   }
