@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Geolocation, Geoposition } from '@ionic-native/geolocation';
+import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-navigator';
 /**
  * Generated class for the GoogleMapPage page.
  *
@@ -15,20 +16,20 @@ declare var google; //add it to work in my laptop, feel free to remove it. Xiao
 })
 export class GoogleMapPage {
 
-  // Receive the Stop Name and location
-
+  // Receive the Stop Name and stopLocation
   @ViewChild('map') mapElement;
   map: any;
   stopName: string;
-  stopLocationLat: number;
-  stopLocationLng: number;
-  location: {lat: number, long: number};
+  stopLocation: {lat: number, long: number};
   locationValid: boolean;
-
-  constructor(public navCtrl: NavController, public parm:NavParams) {
+  launcher:any;
+  deviceLocation : Coordinates;
+  constructor(public navCtrl: NavController, public parm:NavParams,
+              private launchNavigator: LaunchNavigator,private geolocation: Geolocation) {
   	this.stopName = parm.get('stopName');
-    this.location = parm.get('location');
+    this.stopLocation = parm.get('location');
     this.locationValid = true;
+    this.launcher = launchNavigator;
   }
 
   ionViewDidLoad() {
@@ -36,11 +37,11 @@ export class GoogleMapPage {
   }
 
   initMap(){
-    if (this.location.lat === 0 && this.location.long === 0) {
+    if (this.stopLocation.lat === 0 && this.stopLocation.long === 0) {
       this.locationValid = false;
       return;
     }
-    let latLng = new google.maps.LatLng(this.location.lat, this.location.long);
+    let latLng = new google.maps.LatLng(this.stopLocation.lat, this.stopLocation.long);
 
   	let mapOptions = {
   		center: latLng,
@@ -53,15 +54,12 @@ export class GoogleMapPage {
   		position: latLng,
   		map: this.map
   	})
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function(currentPos){
-
-      var curLat = currentPos.coords.latitude;
-      var curLng = currentPos.coords.longitude;
-      console.log(curLat);
-      console.log(curLng);
+    let watch = this.geolocation.watchPosition();
+    watch.subscribe((data) => {
+      this.deviceLocation = data.coords;
+      console.log(this.deviceLocation);
       var device = new google.maps.Marker({
-        position: new google.maps.LatLng(curLat, curLng),
+        position: new google.maps.LatLng(this.deviceLocation.latitude, this.deviceLocation.longitude),
         icon: {
           path: google.maps.SymbolPath.CIRCLE,
           radius: 500,
@@ -77,22 +75,36 @@ export class GoogleMapPage {
         zIndex : 999 ,
 
         map_icon_label: '<span class="map-icon map-icon-point-of-interest"></span>'
-      });
+        });
       device.setMap(currentMap);
       var bounds = new google.maps.LatLngBounds();
       bounds.extend(device.getPosition());
       bounds.extend(marker.getPosition());
       currentMap.fitBounds(bounds);
-      // Add a new marker based on the curLat,curLng
 
-    },function(){
-      console.log("Cannot find the current location");
-    });}else{
-      console.log("Geolocation cannot be opened");
-    }
+    });
+    
   }
   closeModal() {
     this.navCtrl.pop();
+  }
+  openApp(){
+    this.geolocation.getCurrentPosition().then((data) => {
+      var phonelocation = data.coords;
+      let options: LaunchNavigatorOptions = {
+        start: [phonelocation.latitude,phonelocation.longitude],
+        app: this.launcher.APP.GOOGLE_MAPS
+      };
+
+      this.launcher.navigate([this.stopLocation.lat,this.stopLocation.long], options)
+      .then(
+      success => console.log('Launched navigator'),
+      error => console.log('Error launching navigator', error)
+    );
+    }).catch((error) => {
+      console.log('Error getting location', error);
+    });
+
   }
 
 }
