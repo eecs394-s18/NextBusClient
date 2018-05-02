@@ -15,12 +15,14 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class RouteDetailsPage {
   sortedStops: any[];
+  lineName: "";
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     let keys = Object.keys(this.navParams.data.routeStops);
     this.sortStops(keys)
   }
 
   ionViewDidLoad() {
+    this.lineName = this.navParams.data.routeName;
   }
 
   sortStops(keys: any[]) {
