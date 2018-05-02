@@ -22,7 +22,7 @@
 
 
 <ion-content>
-  <ion-title>Recommended Stops</ion-title>
+  <ion-title class="headline">Recommended Stops</ion-title>
   <div *ngIf="closestStops.length === 0">
     Loading...
   </div>
@@ -34,7 +34,7 @@
       </button>
     </div>
   </ion-list>
-  <ion-title>Favorite Stops</ion-title>
+  <ion-title class="headline favorite">Favorite Stops</ion-title>
   <ion-list>
     <div class="emptyFavesMsg" align="center" *ngIf="favStops != null">
       <p>Go to Stops tab to add favorite stops</p>

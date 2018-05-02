@@ -6,4 +6,20 @@ page-personal {
     align-items: center;
   }
 
+  .headline {
+  	font-size: 48px;
+  	padding-top: 35px;
+  	margin-bottom: 20px;
+  	color: #333;
+  	font-weight: bolder;
+  }
+
+  .headline .toolbar-title {
+  	font-size: .5em;
+  }
+
+  .favorite {
+  	padding-bottom: 15px;
+  }
+
 }
