@@ -36,7 +36,7 @@
   </ion-list>
   <ion-title class="headline favorite">Favorite Stops</ion-title>
   <ion-list>
-    <div class="emptyFavesMsg" align="center" *ngIf="favStops != null">
+    <div class="emptyFavesMsg" align="center" *ngIf="favStops === 'null'">
       <p>Go to Stops tab to add favorite stops</p>
     </div>
     <div *ngFor="let stop of stops | async">
