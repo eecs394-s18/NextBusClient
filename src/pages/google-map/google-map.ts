@@ -78,9 +78,11 @@ export class GoogleMapPage {
 
         map_icon_label: '<span class="map-icon map-icon-point-of-interest"></span>'
       });
-      currentMap.setCenter({lat: curLat,
-                            lng: curLng})
       device.setMap(currentMap);
+      var bounds = new google.maps.LatLngBounds();
+      bounds.extend(device.getPosition());
+      bounds.extend(marker.getPosition());
+      currentMap.fitBounds(bounds);
       // Add a new marker based on the curLat,curLng
 
     },function(){
