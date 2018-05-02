@@ -67,7 +67,18 @@ page-stop-details {
     }
 
     .tempTitle{
-        height: 80px;
-        font-size: 200%;    
+        height: auto;
+    }
+
+    .titleStop {
+      padding-top: 15px;
+      padding-bottom: 15px;
+      font-size: 25px;    
+    }
+
+    .upcomingBuses {
+      font-size: 20px;
+      text-align: center;
+      padding-bottom: 10px;
     }
 }

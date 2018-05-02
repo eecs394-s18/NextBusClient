@@ -7,15 +7,15 @@
 
 <ion-header>
   <ion-navbar>
-    <ion-title align="center">Stop Details</ion-title>
+    <ion-title>Stop Details</ion-title>
   </ion-navbar>
 </ion-header>
 
 
 <ion-content>
-  <ion-navbar class='tempTitle'>
-    <ion-title class='tempTitle' align="center">{{this.stopName}}</ion-title>
-  </ion-navbar>
+  <div class='tempTitle'>
+    <div class='titleStop' align="center">{{this.stopName}}</div>
+  </div>
 
 
 
@@ -31,9 +31,9 @@
                 <ion-title *ngIf="fav">Unfavorite</ion-title>
     </button>
   </ion-buttons>
-  <ion-item-divider>
-  </ion-item-divider>
+
   <ion-list>
+
     <ion-item>
       <h3 *ngIf="nextBuses.length > 0" class="alignLeftBold">{{this.nextBuses[0].line}}</h3>
       <h3 *ngIf="nextBuses.length > 0" class="alignRightBold">{{this.nextBuses[0].showString}}</h3>
