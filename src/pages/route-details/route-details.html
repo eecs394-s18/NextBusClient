@@ -15,9 +15,8 @@
 
 <ion-content>
   <ion-list>
-    <!-- <button ion-item *ngFor="let route of routes" (click)="itemTapped($event, item)"> -->
-    <button ion-item *ngFor="let stop of sortedStops">
-    {{stop}}
+    <button ion-item *ngFor="let stop of sortedStops" (click)="itemTapped($event, stop)">
+      {{stop}}
     </button>
   </ion-list>
 </ion-content>

@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { Observable } from 'rxjs/Observable';
+import { StopDetailsPage } from '../stop-details/stop-details';
+import { FirebaseProvider } from './../../providers/firebase/firebase';
 
 /**
  * Generated class for the RouteDetailsPage page.
@@ -16,7 +19,9 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 export class RouteDetailsPage {
   sortedStops: any[];
   lineName: "";
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  items: any[];
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    public firebaseProvider: FirebaseProvider, public alertCtrl: AlertController) {
     let keys = Object.keys(this.navParams.data.routeStops);
     this.sortStops(keys)
   }
@@ -37,6 +42,25 @@ export class RouteDetailsPage {
     var aStopNum: number = Number(a.slice(4, ));
     var bStopNum: number = Number(b.slice(4, ));
     return aStopNum - bStopNum;
+  }
+
+  itemTapped(event, item) {
+    let stops = this.firebaseProvider.getBusStops().valueChanges();
+    stops.subscribe(elem => {
+      this.items = elem;
+      this.items.forEach(stop => {
+        if (stop.name == item) {
+          let stopDetailsModal = this.navCtrl.push(StopDetailsPage,
+            { stopName: stop.name, stopID: stop.id });
+          return;
+        }
+      });
+      let alert = this.alertCtrl.create({
+        title: 'Stop not found',
+        buttons: ['got it']
+      });
+      alert.present();
+    });
   }
 
 }

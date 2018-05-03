@@ -45,7 +45,7 @@ export class FirebaseProvider {
     return this.afd.list('/busStops/stop' + stopID + '/' + dayStr + 'Times/');
     // return this.afd.list('/busStops/stop0/mondayTimes/');
   }
-
+  
   getStopLocation(stopID) {
     return this.afd.list('/busStops/stop' + stopID + '/location/');
   }
